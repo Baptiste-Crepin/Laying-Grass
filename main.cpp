@@ -1,6 +1,12 @@
 #include <iostream>
+#include "Cells/Cell.h"
+
+using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    cout << "Hello, World!" << endl;
+
+    Cell cell(0, 0, Grass);
+    cout << cell.getType() << endl;
     return 0;
 }
