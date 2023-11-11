@@ -52,17 +52,29 @@ build CMakeFiles/LayingGrass.dir/main.cpp.o: CXX_COMPILER__LayingGrass_Debug /Us
   OBJECT_DIR = CMakeFiles/LayingGrass.dir
   OBJECT_FILE_DIR = CMakeFiles/LayingGrass.dir
 
-build CMakeFiles/LayingGrass.dir/Cells/Tiles/Tile.cpp.o: CXX_COMPILER__LayingGrass_Debug /Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Cells/Tiles/Tile.cpp || cmake_object_order_depends_target_LayingGrass
-  DEP_FILE = CMakeFiles/LayingGrass.dir/Cells/Tiles/Tile.cpp.o.d
+build CMakeFiles/LayingGrass.dir/Cells/Pieces/Piece.cpp.o: CXX_COMPILER__LayingGrass_Debug /Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Cells/Pieces/Piece.cpp || cmake_object_order_depends_target_LayingGrass
+  DEP_FILE = CMakeFiles/LayingGrass.dir/Cells/Pieces/Piece.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu++2b
   OBJECT_DIR = CMakeFiles/LayingGrass.dir
-  OBJECT_FILE_DIR = CMakeFiles/LayingGrass.dir/Cells/Tiles
+  OBJECT_FILE_DIR = CMakeFiles/LayingGrass.dir/Cells/Pieces
 
 build CMakeFiles/LayingGrass.dir/Cells/Cell.cpp.o: CXX_COMPILER__LayingGrass_Debug /Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Cells/Cell.cpp || cmake_object_order_depends_target_LayingGrass
   DEP_FILE = CMakeFiles/LayingGrass.dir/Cells/Cell.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu++2b
   OBJECT_DIR = CMakeFiles/LayingGrass.dir
   OBJECT_FILE_DIR = CMakeFiles/LayingGrass.dir/Cells
+
+build CMakeFiles/LayingGrass.dir/Board.cpp.o: CXX_COMPILER__LayingGrass_Debug /Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Board.cpp || cmake_object_order_depends_target_LayingGrass
+  DEP_FILE = CMakeFiles/LayingGrass.dir/Board.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu++2b
+  OBJECT_DIR = CMakeFiles/LayingGrass.dir
+  OBJECT_FILE_DIR = CMakeFiles/LayingGrass.dir
+
+build CMakeFiles/LayingGrass.dir/Game.cpp.o: CXX_COMPILER__LayingGrass_Debug /Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Game.cpp || cmake_object_order_depends_target_LayingGrass
+  DEP_FILE = CMakeFiles/LayingGrass.dir/Game.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu++2b
+  OBJECT_DIR = CMakeFiles/LayingGrass.dir
+  OBJECT_FILE_DIR = CMakeFiles/LayingGrass.dir
 
 
 # =============================================================================
@@ -72,7 +84,7 @@ build CMakeFiles/LayingGrass.dir/Cells/Cell.cpp.o: CXX_COMPILER__LayingGrass_Deb
 #############################################
 # Link the executable LayingGrass
 
-build LayingGrass: CXX_EXECUTABLE_LINKER__LayingGrass_Debug CMakeFiles/LayingGrass.dir/main.cpp.o CMakeFiles/LayingGrass.dir/Cells/Tiles/Tile.cpp.o CMakeFiles/LayingGrass.dir/Cells/Cell.cpp.o
+build LayingGrass: CXX_EXECUTABLE_LINKER__LayingGrass_Debug CMakeFiles/LayingGrass.dir/main.cpp.o CMakeFiles/LayingGrass.dir/Cells/Pieces/Piece.cpp.o CMakeFiles/LayingGrass.dir/Cells/Cell.cpp.o CMakeFiles/LayingGrass.dir/Board.cpp.o CMakeFiles/LayingGrass.dir/Game.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk
   OBJECT_DIR = CMakeFiles/LayingGrass.dir
   POST_BUILD = :

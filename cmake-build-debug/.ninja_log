@@ -1,10 +1,10 @@
 # ninja log v5
-0	48	1699011922923667419	build.ninja	f6dfd9734bdc699d
-1	23	1699009636822836773	CMakeFiles/LayingGrass.dir/Cell.cpp.o	c320c498f0d82589
+1	298	1699744522661146838	CMakeFiles/LayingGrass.dir/main.cpp.o	f31248e653f3f49
+1	2372	1699742197507572233	CMakeFiles/LayingGrass.dir/Cells/Tiles/Tile.cpp.o	2268a505abc29b4c
+2	169	1699744072585560866	CMakeFiles/LayingGrass.dir/Cells/Cell.cpp.o	9286a9908ea46c25
+299	331	1699744522694947068	LayingGrass	5a05e96fef862388
 4	291	1699009589292096619	CMakeFiles/LayingGrass.dir/Tiles/Tile.cpp.o	3015247b14357392
-174	206	1699010564260234854	LayingGrass	7dc446d9b436575
-2	167	1699010481820747265	CMakeFiles/LayingGrass.dir/Cells/Cell.cpp.o	9286a9908ea46c25
-1	174	1699010564228419586	CMakeFiles/LayingGrass.dir/Cells/Tiles/Tile.cpp.o	2268a505abc29b4c
-1	401	1699010482054491969	CMakeFiles/LayingGrass.dir/main.cpp.o	f31248e653f3f49
-2	250	1699011928703630636	CMakeFiles/LayingGrass.dir/Cells/Tiles/Tile.cpp.o	2268a505abc29b4c
-250	283	1699011928736729315	LayingGrass	7dc446d9b436575
+1	443	1699744504945999520	CMakeFiles/LayingGrass.dir/Board.cpp.o	f6e46c1a5ab115a4
+1	23	1699009636822836773	CMakeFiles/LayingGrass.dir/Cell.cpp.o	c320c498f0d82589
+0	45	1699744556343904022	build.ninja	f6dfd9734bdc699d
+1	242	1699742530188006322	CMakeFiles/LayingGrass.dir/Cells/Pieces/Piece.cpp.o	31040ebf38dc0d34

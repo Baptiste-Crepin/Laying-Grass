@@ -4,7 +4,6 @@
 
 #include "Cell.h"
 
-
 Cell::Cell(int x, int y, CellTypeEnum type) : x(x), y(y), type(type) {}
 Cell::~Cell() {}
 
