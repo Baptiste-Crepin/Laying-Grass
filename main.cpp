@@ -1,14 +1,9 @@
 #include <iostream>
-#include "Cells/Cell.h"
-#include "Board.h"
+#include "Game.h"
 using namespace std;
 
 int main() {
-    cout << "Hello, World!" << endl;
-    
-    Board board = Board(20);
-    board.printBoard();
-    cout << board.getSideWidth() << endl;
-    cout << "End" << endl;
+    Game game = Game(6);
+    game.getBoard().printBoard();
     return 0;
 }

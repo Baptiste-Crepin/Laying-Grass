@@ -20,6 +20,9 @@ Board::Board(int sideWidth) : sideWidth(sideWidth) {
 
 Board::~Board() {
     for (int i = 0; i < sideWidth; ++i) {
+        for (int j = 0; j < sideWidth; ++j) {
+            delete cellsLayout[i][j];
+        }
         delete[] cellsLayout[i];
     }
     delete[] cellsLayout;
