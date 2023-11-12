@@ -1,6 +1,9 @@
 #include <iostream>
+#include "Game.h"
+using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Game game = Game(6);
+    game.getBoard().printBoard();
     return 0;
 }
