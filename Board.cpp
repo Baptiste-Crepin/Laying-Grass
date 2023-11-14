@@ -33,11 +33,10 @@ Cell*** Board::getCellsLayout() const {return cellsLayout;}
 
 
 void Board::printBoard() {
-    cout << "Print" << endl;
-    for (int i = 0; i < sideWidth; ++i) {
-        for (int j = 0; j < sideWidth; ++j) {
+    for (int i = 0; i < sideWidth; i++) {
+        for (int j = 0; j < sideWidth; j++) {
             cout << cellsLayout[i][j]->getType() << " ";
         }
-        cout << endl;
+        cout << i+1 <<endl;
     }
 }
