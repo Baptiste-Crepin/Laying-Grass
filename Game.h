@@ -7,6 +7,7 @@
 
 
 #include "Board.h"
+#include "Player.h"
 
 class Game {
 private:
@@ -14,11 +15,11 @@ private:
     int currentPlayerIndex;
     int turnCount = 0;
     const int turnLimit = 9;
-    int* playerTurnOrder;
+    Player* playerTurnOrder;
     bool GameEnded = false;
     Board board;
 
-    int* randomizePlayerTurnOrder(int playerCount);
+    Player* randomizePlayerTurnOrder(int playerCount);
     void setNextPlayer();
 
 public:
@@ -26,10 +27,10 @@ public:
 
     int getPlayerCount() const;
     int getCurrentPlayerIndex() const;
-    int getCurrentPlayer();
+    Player getCurrentPlayer();
     int getTurnCount() const;
     int getTurnLimit() const;
-    int *getPlayerTurnOrder() const;
+    Player *getPlayerTurnOrder() const;
     bool isGameEnded() const;
     Board getBoard() const;
 

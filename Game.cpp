@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 #include "Game.h"
 
 using namespace std;
@@ -23,7 +24,7 @@ int Game::getPlayerCount() const {return playerCount;}
 int Game::getCurrentPlayerIndex() const {return currentPlayerIndex;}
 int Game::getTurnCount() const {return turnCount;}
 int Game::getTurnLimit() const {return turnLimit;}
-int* Game::getPlayerTurnOrder() const {return playerTurnOrder;}
+Player* Game::getPlayerTurnOrder() const {return playerTurnOrder;}
 bool Game::isGameEnded() const {return GameEnded;}
 Board Game::getBoard() const {return this->board;}
 
@@ -35,30 +36,33 @@ void Game::setGameEnded(bool gameState) {Game::GameEnded = gameState;}
 
 void Game::newTurn() {
     cout << "Turn " << this->getTurnCount() << endl;
-    while (this->getCurrentPlayerIndex() < this->getPlayerCount()-1){
-        cout << "Player " << this->getCurrentPlayer()+1 << " turn" << endl;
-        this->getBoard().printBoard();
+
+    do {
         this->setNextPlayer();
-    }
-    this->setCurrentPlayerIndex(0);
+        cout << this->getCurrentPlayer().getId() << " | " << this->getCurrentPlayer().getName() << endl;
+        this->getBoard().printBoard();
+
+    } while ((this->getCurrentPlayerIndex() < this->getPlayerCount()) );
+
     this->setTurnCount(this->getTurnCount() + 1);
 }
 
-int Game::getCurrentPlayer() {
+Player Game::getCurrentPlayer() {
     return this->getPlayerTurnOrder()[this->getCurrentPlayerIndex()];
 }
 
 //region: Private methods
 
-int* Game::randomizePlayerTurnOrder(int playerCount){
+Player* Game::randomizePlayerTurnOrder(int playerCount){
     //gets a seed based on the current time for the rand() function
     srand(static_cast<unsigned>(time(nullptr)));
 
-    int* playerTurnOrder = new int[playerCount];
-    for (int i = 0; i < playerCount; ++i) playerTurnOrder[i] = i;
-    for (int i = 0; i < playerCount; ++i) {
+    Player* playerTurnOrder = new Player[playerCount];
+    string name = "Test"; // Todo: get this a variable from the player
+    for (int i = 0; i <= playerCount; i++) playerTurnOrder[i] = Player(i, name);
+    for (int i = 0; i <= playerCount; i++) {
         int randomIndex = rand() % playerCount;
-        int temp = playerTurnOrder[i];
+        Player temp = playerTurnOrder[i];
         playerTurnOrder[i] = playerTurnOrder[randomIndex];
         playerTurnOrder[randomIndex] = temp;
     }
@@ -66,5 +70,5 @@ int* Game::randomizePlayerTurnOrder(int playerCount){
 }
 
 void Game::setNextPlayer() {
-    this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % this->getPlayerCount());
+    this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % this->getPlayerCount()+1);
 }
