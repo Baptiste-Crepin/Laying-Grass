@@ -16,6 +16,7 @@ private:
     CellTypeEnum type;
 
 public:
+    Cell() : x(0), y(0), type(Void) {}
     Cell(int x, int y, CellTypeEnum type = Void);
     ~Cell();
 

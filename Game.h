@@ -15,26 +15,29 @@ private:
     int turnCount = 0;
     const int turnLimit = 9;
     int* playerTurnOrder;
-    bool isGameFinished = false;
+    bool GameEnded = false;
     Board board;
 
-//public:
     int* randomizePlayerTurnOrder(int playerCount);
+    void setNextPlayer();
 
 public:
     Game(int playerCount, int turnLimit = 9);
 
     int getPlayerCount() const;
     int getCurrentPlayerIndex() const;
+    int getCurrentPlayer();
     int getTurnCount() const;
     int getTurnLimit() const;
     int *getPlayerTurnOrder() const;
-    bool isGameFinished1() const;
+    bool isGameEnded() const;
     Board getBoard() const;
 
-    void setIsGameFinished(bool isGameFinished);
+    void setGameEnded(bool gameState);
     void setCurrentPlayerIndex(int currentPlayerIndex);
     void setTurnCount(int turnCount);
+
+    void newTurn();
 };
 
 
