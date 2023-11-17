@@ -11,14 +11,14 @@
 class Board {
 private:
     int sideWidth; // the board is always a square
-    Cell*** cellsLayout;
+    Cell** cellsLayout;
 
 public:
     Board(int sideWidth);
     ~Board();
 
     int getSideWidth() const;
-    Cell*** getCellsLayout() const;
+    Cell** getCellsLayout() const;
 
     void setCellsLayout(Cell** cellsLayout);
 

@@ -8,6 +8,7 @@ int main() {
     {
         game.newTurn();
     }
+
     cout << "Game ended" << endl;
     return 0;
 }

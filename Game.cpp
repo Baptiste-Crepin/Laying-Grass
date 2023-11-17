@@ -25,7 +25,7 @@ int Game::getTurnCount() const {return turnCount;}
 int Game::getTurnLimit() const {return turnLimit;}
 int* Game::getPlayerTurnOrder() const {return playerTurnOrder;}
 bool Game::isGameEnded() const {return GameEnded;}
-Board Game::getBoard() const {return board;}
+Board Game::getBoard() const {return this->board;}
 
 void Game::setCurrentPlayerIndex(int currentPlayerIndex) {Game::currentPlayerIndex = currentPlayerIndex;}
 void Game::setTurnCount(int turnCount) {Game::turnCount = turnCount;}
@@ -35,11 +35,12 @@ void Game::setGameEnded(bool gameState) {Game::GameEnded = gameState;}
 
 void Game::newTurn() {
     cout << "Turn " << this->getTurnCount() << endl;
-    for(int playerIndex = 0; playerIndex < this->getPlayerCount(); ++playerIndex){
+    while (this->getCurrentPlayerIndex() < this->getPlayerCount()-1){
         cout << "Player " << this->getCurrentPlayer()+1 << " turn" << endl;
-        this->setNextPlayer();
         this->getBoard().printBoard();
+        this->setNextPlayer();
     }
+    this->setCurrentPlayerIndex(0);
     this->setTurnCount(this->getTurnCount() + 1);
 }
 
