@@ -8,6 +8,8 @@
 
 #include "Board.h"
 #include "Player.h"
+#include "Cells/Tiles/Tile.h"
+#include "TileQueue.h"
 
 class Game {
 private:
@@ -15,28 +17,45 @@ private:
     int currentPlayerIndex;
     int turnCount = 0;
     const int turnLimit = 9;
-    Player* playerTurnOrder;
+    Player *playerTurnOrder;
     bool GameEnded = false;
     Board board;
+    TileQueue tileQueue;
 
-    Player* randomizePlayerTurnOrder(int playerCount);
+private:
+
+    Player *randomizePlayerTurnOrder(int playerCount);
+
     void setNextPlayer();
 
 public:
     Game(int playerCount, int turnLimit = 9);
 
     int getPlayerCount() const;
+
     int getCurrentPlayerIndex() const;
+
     Player getCurrentPlayer();
+
     int getTurnCount() const;
+
     int getTurnLimit() const;
+
     Player *getPlayerTurnOrder() const;
+
     bool isGameEnded() const;
+
     Board getBoard() const;
 
+    TileQueue getTileQueue() const;
+
     void setGameEnded(bool gameState);
+
     void setCurrentPlayerIndex(int currentPlayerIndex);
+
     void setTurnCount(int turnCount);
+
+    void setTileQueue(TileQueue upcomingTiles);
 
     void newTurn();
 };

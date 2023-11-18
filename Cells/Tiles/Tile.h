@@ -7,15 +7,23 @@
 
 #include <string>
 
-//The Piece is the base class for all the different Pieces
-class Piece {
+//The Tile is the base class for all the different Tiles
+class Tile {
 protected:
+    int id;
     //list of relative coordinates
     //type = enum (grass, void, bonus)
 
 public:
-//    Piece(int x, int y);
-//    ~Piece();
+//    Tile(int x, int y);
+//    ~Tile();
+    Tile(int id);
+
+    Tile();
+
+    ~Tile();
+
+    int getId() const;
 
 };
 
