@@ -47,7 +47,6 @@ public:
 
     Board getBoard() const;
 
-    TileQueue getTileQueue() const;
 
     void setGameEnded(bool gameState);
 
@@ -55,9 +54,12 @@ public:
 
     void setTurnCount(int turnCount);
 
-    void setTileQueue(TileQueue upcomingTiles);
 
     void newTurn();
+
+    const TileQueue &getTileQueue() const;
+
+    void setTileQueue(const TileQueue &tileQueue);
 };
 
 

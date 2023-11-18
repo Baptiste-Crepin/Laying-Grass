@@ -10,8 +10,5 @@ int main() {
     }
 
     cout << "Game ended" << endl;
-
-    TileQueue tileQueue = TileQueue(3);
-    tileQueue.displayQueue();
     return 0;
 }

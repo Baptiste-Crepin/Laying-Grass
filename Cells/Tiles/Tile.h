@@ -16,12 +16,11 @@ protected:
 
 public:
 //    Tile(int x, int y);
-//    ~Tile();
-    Tile(int id);
+    ~Tile();
+
+    explicit Tile(int id);
 
     Tile();
-
-    ~Tile();
 
     int getId() const;
 

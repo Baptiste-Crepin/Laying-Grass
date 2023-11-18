@@ -5,36 +5,59 @@
 #include "TileQueue.h"
 #include <iostream>
 
-TileQueue::TileQueue(int nbPlayers) {
+using namespace std;
+
+TileQueue::TileQueue(int nbPlayers) : totalTiles(round(nbPlayers * tilesPerPLayer)), currentTileIndex(0) {
     generateQueue(nbPlayers);
 }
 
-TileQueue::~TileQueue() {}
+TileQueue::~TileQueue() {
+//    cout << "deleted" << endl;
+}
 
-float TileQueue::getTilesPerPLayer() const { return tilesPerPLayer; }
+Tile *TileQueue::getQueue() const { return queue; }
 
 int TileQueue::getDisplayedTiles() const { return displayedTiles; }
 
-void TileQueue::displayQueue() {
-    for (int i = 0; i < displayedTiles; i++) {
-        std::cout << "Tile " << i << " : " << queue[i].getId() << std::endl;
+void TileQueue::displayQueue() const {
+    cout << "Queue : " << endl;
+    for (int i = this->getCurrentTileIndex(); i < this->getDisplayedTiles() + this->getCurrentTileIndex(); i++) {
+        cout << this->getQueue()[i].getId() << " | ";
     }
+    cout << endl;
+}
+
+int TileQueue::getTotalTiles() const { return totalTiles; }
+
+Tile TileQueue::getCurrentTile() const {
+    return queue[this->getCurrentTileIndex()];
+}
+
+void TileQueue::nextTile() {
+    this->setCurrentTileIndex((this->getCurrentTileIndex() + 1) % (this->getTotalTiles() + 1));
+}
+
+int TileQueue::getCurrentTileIndex() const {
+    return currentTileIndex;
+}
+
+void TileQueue::setCurrentTileIndex(int currentTileIndex) {
+    TileQueue::currentTileIndex = currentTileIndex;
 }
 
 // private methods
 
 void TileQueue::generateQueue(int nbPlayers) {
-    int nbTiles = round(nbPlayers * tilesPerPLayer);
 
     //create queue
-    Tile *tempQueue = new Tile[nbTiles];
-    for (int i = 0; i < nbTiles; i++) {
+    Tile *tempQueue = new Tile[this->getTotalTiles()];
+    for (int i = 0; i < this->getTotalTiles(); i++) {
         tempQueue[i] = Tile(i);
     }
 
     //randomize queue
-    for (int i = 0; i <= nbTiles; i++) {
-        int randomIndex = rand() % nbTiles;
+    for (int i = 0; i <= this->getTotalTiles(); i++) {
+        int randomIndex = rand() % this->getTotalTiles();
         Tile temp = tempQueue[i];
         tempQueue[i] = tempQueue[randomIndex];
         tempQueue[randomIndex] = temp;

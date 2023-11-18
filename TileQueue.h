@@ -13,6 +13,10 @@ private:
     float tilesPerPLayer = 10.67;
     int displayedTiles = 6;
     Tile *queue;
+    int totalTiles;
+    int currentTileIndex;
+
+private:
 
     void generateQueue(int nbPlayers);
 
@@ -21,11 +25,25 @@ public:
 
     ~TileQueue();
 
-    float getTilesPerPLayer() const;
-
     int getDisplayedTiles() const;
 
-    void displayQueue();
+
+    int getTotalTiles() const;
+
+    Tile getCurrentTile() const;
+
+    Tile *getQueue() const;
+
+    void displayQueue() const;
+
+
+    void nextTile();
+
+    int getCurrentTileIndex() const;
+
+
+    void setCurrentTileIndex(int currentTileIndex);
+
 };
 
 

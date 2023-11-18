@@ -34,7 +34,6 @@ bool Game::isGameEnded() const { return GameEnded; }
 
 Board Game::getBoard() const { return board; }
 
-TileQueue Game::getTileQueue() const { return tileQueue; }
 
 void Game::setCurrentPlayerIndex(int currentPlayerIndex) { Game::currentPlayerIndex = currentPlayerIndex; }
 
@@ -42,18 +41,20 @@ void Game::setTurnCount(int turnCount) { Game::turnCount = turnCount; }
 
 void Game::setGameEnded(bool gameState) { Game::GameEnded = gameState; }
 
-void Game::setTileQueue(TileQueue tileQueue) { Game::tileQueue = tileQueue; }
-
 
 void Game::newTurn() {
     cout << "Turn " << this->getTurnCount() << endl;
 
     do {
-        this->setNextPlayer();
         cout << this->getCurrentPlayer().getId() << " | " << endl;
         this->getBoard().printBoard();
+        this->getTileQueue().displayQueue();
+        tileQueue.nextTile();
+        this->setNextPlayer();
+
 
     } while ((this->getCurrentPlayerIndex() < this->getPlayerCount()));
+
 
     this->setTurnCount(this->getTurnCount() + 1);
 }
@@ -83,3 +84,10 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
 void Game::setNextPlayer() {
     this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % this->getPlayerCount() + 1);
 }
+
+
+void Game::setTileQueue(const TileQueue &tileQueue) {
+    Game::tileQueue = tileQueue;
+}
+
+const TileQueue &Game::getTileQueue() const { return this->tileQueue; }

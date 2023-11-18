@@ -3,6 +3,7 @@
 //
 
 #include "Tile.h"
+#include <iostream>
 
 //Tile::Tile(int x, int y) : x(x), y(y) {}
 //Tile::~Tile() {}
@@ -13,11 +14,15 @@
 //void Tile::setX(int x) {Tile::x = x;}
 //void Tile::setY(int y) {Tile::y = y;}
 
+
+Tile::~Tile() {
+    int a = this->getId();
+    std::cout << "DELETE TILE" << std::endl;
+}
+
+int Tile::getId() const { return id; }
+
 Tile::Tile(int id) : id(id) {}
 
 Tile::Tile() {}
-
-Tile::~Tile() {}
-
-int Tile::getId() const { return id; }
 
