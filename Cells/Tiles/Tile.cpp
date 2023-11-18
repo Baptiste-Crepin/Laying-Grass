@@ -16,8 +16,7 @@
 
 
 Tile::~Tile() {
-    int a = this->getId();
-    std::cout << "DELETE TILE" << std::endl;
+//    std::cout << "DELETE TILE" << std::endl;
 }
 
 int Tile::getId() const { return id; }

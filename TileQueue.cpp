@@ -22,7 +22,7 @@ int TileQueue::getDisplayedTiles() const { return displayedTiles; }
 void TileQueue::displayQueue() const {
     cout << "Queue : " << endl;
     for (int i = this->getCurrentTileIndex(); i < this->getDisplayedTiles() + this->getCurrentTileIndex(); i++) {
-        cout << this->getQueue()[i].getId() << " | ";
+        cout << this->getQueue()[i % this->getTotalTiles()].getId() << " | ";
     }
     cout << endl;
 }
