@@ -4,9 +4,10 @@
 
 #include "Player.h"
 
-Player::Player(int id, std::string name) : id(id), name(name) {}
+//Player::Player(int id, std::string name) : id(id), name(name) {}
+Player::Player(int id) : id(id) {}
 Player::Player() {}
 Player::~Player() {}
 
 int Player::getId() const {return id;}
-const std::string &Player::getName() const {return name;}
+//const std::string &Player::getName() const {return name;}

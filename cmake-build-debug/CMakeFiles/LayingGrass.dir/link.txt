@@ -1,0 +1,3 @@
+C:\Users\martin\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\232.9921.42\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\LayingGrass.dir/objects.a
+C:\Users\martin\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\232.9921.42\bin\mingw\bin\ar.exe qc CMakeFiles\LayingGrass.dir/objects.a @CMakeFiles\LayingGrass.dir\objects1.rsp
+C:\Users\martin\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\232.9921.42\bin\mingw\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\LayingGrass.dir/objects.a -Wl,--no-whole-archive -o LayingGrass.exe -Wl,--out-implib,libLayingGrass.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\LayingGrass.dir\linkLibs.rsp

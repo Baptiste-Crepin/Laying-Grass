@@ -39,7 +39,7 @@ void Game::newTurn() {
 
     do {
         this->setNextPlayer();
-        cout << this->getCurrentPlayer().getId() << " | " << this->getCurrentPlayer().getName() << endl;
+        cout << this->getCurrentPlayer().getId() << " | " << endl;
         this->getBoard().printBoard();
 
     } while ((this->getCurrentPlayerIndex() < this->getPlayerCount()) );
@@ -59,7 +59,7 @@ Player* Game::randomizePlayerTurnOrder(int playerCount){
 
     Player* playerTurnOrder = new Player[playerCount];
     string name = "Test"; // Todo: get this a variable from the player
-    for (int i = 0; i <= playerCount; i++) playerTurnOrder[i] = Player(i, name);
+    for (int i = 0; i <= playerCount; i++) playerTurnOrder[i] = Player(i);
     for (int i = 0; i <= playerCount; i++) {
         int randomIndex = rand() % playerCount;
         Player temp = playerTurnOrder[i];
