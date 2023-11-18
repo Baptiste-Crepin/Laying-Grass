@@ -21,6 +21,8 @@ private:
     void generateQueue(int nbPlayers);
 
 public:
+    Tile tileExchange();
+
     TileQueue(int nbPlayers);
 
     ~TileQueue();

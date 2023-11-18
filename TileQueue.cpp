@@ -4,6 +4,7 @@
 
 #include "TileQueue.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -20,9 +21,8 @@ Tile *TileQueue::getQueue() const { return queue; }
 int TileQueue::getDisplayedTiles() const { return displayedTiles; }
 
 void TileQueue::displayQueue() const {
-    cout << "Queue : " << endl;
     for (int i = this->getCurrentTileIndex(); i < this->getDisplayedTiles() + this->getCurrentTileIndex(); i++) {
-        cout << this->getQueue()[i % this->getTotalTiles()].getId() << " | ";
+        cout << std::setw(2) << this->getQueue()[i % this->getTotalTiles()].getId() << " | ";
     }
     cout << endl;
 }
@@ -43,6 +43,21 @@ int TileQueue::getCurrentTileIndex() const {
 
 void TileQueue::setCurrentTileIndex(int currentTileIndex) {
     TileQueue::currentTileIndex = currentTileIndex;
+}
+
+Tile TileQueue::tileExchange() {
+    cout << "Choose a tile to exchange : " << endl;
+    this->displayQueue();
+
+    for (int i = 0; i < this->getDisplayedTiles(); i++) {
+        cout << std::setw(2) << i + 1 << " | ";
+    }
+    cout << endl;
+
+    //todo input number between 1 - 6
+    int x = 4;
+    this->setCurrentTileIndex((this->getCurrentTileIndex() + x) % (this->getTotalTiles() + 1));
+    return this->getCurrentTile();
 }
 
 // private methods

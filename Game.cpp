@@ -48,8 +48,13 @@ void Game::newTurn() {
     do {
         cout << this->getCurrentPlayer().getId() << " | " << endl;
         this->getBoard().printBoard();
+        cout << "Queue : " << endl;
         this->getTileQueue().displayQueue();
+
+        //todo: ask player if he wants to exchange a tile (if he has a ticket to exchange)
+        cout << tileQueue.tileExchange().getId() << endl;
         tileQueue.nextTile();
+
         this->setNextPlayer();
 
 
