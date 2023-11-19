@@ -4,6 +4,10 @@
 #include <string>
 #include "Game.h"
 #include "Board.h"
+#include "Rotate_90.h"
+#include "Rotate_n90.h"
+#include "Horizontal_symmetry.h"
+#include "Vertical_symmetry.h"
 #include "fstream"
 #include <vector>
 #include <string>
@@ -12,6 +16,7 @@ using namespace std;
 
 int main() {
     Board board(20);
+
     std::ifstream fichier("C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_1");
 
     if (fichier) {
@@ -34,9 +39,24 @@ int main() {
 
         fichier.close();
 
-        char t = -2;
+        //TEST ROTAION SYMETRIE
+        for (const auto& row : tableau) {
+            for (char val: row) {
+                std::cout << val << " ";
+            }
+            std::cout << std::endl;
+        }
+        tableau = symetrieVerticale(tableau);
+        for (const auto& row : tableau) {
+            for (char val : row) {
+                std::cout << val << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        char t = -2;  // -2 = Grass
         int s, q;
-        cout << "Entrez les coordonnées de la case en haut à gauche : " << endl;
+        cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
         cin >> s;
         cin >> q;
 
@@ -58,7 +78,3 @@ int main() {
 
     return 0;
 }
-
-
-//char t = -2;
-//std::cout << t;
