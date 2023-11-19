@@ -11,14 +11,19 @@ class Player {
 private:
     int id;
     //std::string name;
+    int exchangeTickets = 1;
 
 public:
-    Player(int id);//, std::string name);
+    Player(int id);//, std::string name); //Todo: add names back
     Player();
+
     ~Player();
 
     int getId() const;
-   // const std::string &getName() const;
+
+    int getExchangeTickets() const;
+
+    // const std::string &getName() const;
 };
 
 

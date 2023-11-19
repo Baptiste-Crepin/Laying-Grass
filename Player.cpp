@@ -5,9 +5,15 @@
 #include "Player.h"
 
 //Player::Player(int id, std::string name) : id(id), name(name) {}
-Player::Player(int id) : id(id) {}
+int startingTickets = 1;
+
+Player::Player(int id) {}
+
 Player::Player() {}
+
 Player::~Player() {}
 
-int Player::getId() const {return id;}
+int Player::getId() const { return id; }
+
+int Player::getExchangeTickets() const { return exchangeTickets; }
 //const std::string &Player::getName() const {return name;}
