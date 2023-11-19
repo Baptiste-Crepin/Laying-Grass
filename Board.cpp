@@ -3,40 +3,56 @@
 //
 
 #include <iostream>
-#include "Board.h"
+#include "board.h"
 
-using namespace std;
+Board::Board(int s) {
+    size = s;
 
-Board::Board(int sideWidth) : sideWidth(sideWidth) {
-    // Allocate memory for the 2D array
-    cellsLayout = new Cell*[sideWidth];
-    for (int i = 0; i < sideWidth; ++i) {
-        cellsLayout[i] = new Cell[sideWidth];
+    // Création du tableau à deux dimensions
+    grid = new char*[size];
+    for (int i = 0; i < size; ++i) {
+        grid[i] = new char[size];
+    }
 
-        // Initialize each Cell with the valid values
-        for (int j = 0; j < sideWidth; ++j) {
-            cellsLayout[i][j] = Cell(i, j, Void);
+    // Initialisation du tableau avec des valeurs par défaut, par exemple des espaces
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            grid[i][j] = '0';
         }
     }
 }
+
 Board::~Board() {
-//TODO: fix this destructor, right now it crashes the program when called
-
-//    for (int i = 0; i < sideWidth; ++i) {
-//        delete[] cellsLayout[i];
-//    }
-//    delete[] cellsLayout;
+    // Libération de la mémoire allouée pour le tableau
+    for (int i = 0; i < size; ++i) {
+        delete[] grid[i];
+    }
+    delete[] grid;
 }
 
-int Board::getSideWidth() const {return sideWidth;}
-Cell** Board::getCellsLayout() const {return this->cellsLayout;}
-
-
-void Board::printBoard() {
-    for (int i = 0; i < sideWidth; i++) {
-        for (int j = 0; j < sideWidth; j++) {
-            cout << cellsLayout[i][j].getType() << " ";
+void Board::display() {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            std::cout << grid[i][j] << " ";
         }
-        cout << i+1 <<endl;
+        std::cout << std::endl;
     }
 }
+
+void Board::setValue(int row, int col, char value) {
+    if (row >= 0 && row < size && col >= 0 && col < size) {
+        grid[row][col] = value;
+    } else {
+        std::cout << "Indices hors limites !" << std::endl;
+    }
+}
+
+char Board::getValue(int row, int col) {
+    if (row >= 0 && row < size && col >= 0 && col < size) {
+        return grid[row][col];
+    } else {
+        std::cout << "Indices hors limites !" << std::endl;
+        return '\0';
+    }
+}
+

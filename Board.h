@@ -5,24 +5,20 @@
 #ifndef LAYINGGRASS_BOARD_H
 #define LAYINGGRASS_BOARD_H
 
-
-#include "Cells/Cell.h"
+#include <vector>
+#include <iostream>
 
 class Board {
 private:
-    int sideWidth; // the board is always a square
-    Cell** cellsLayout;
+    int size;
+    char** grid;
 
 public:
-    Board(int sideWidth);
+    Board(int s);
     ~Board();
-
-    int getSideWidth() const;
-    Cell** getCellsLayout() const;
-
-    void setCellsLayout(Cell** cellsLayout);
-
-    void printBoard();
+    void display();
+    void setValue(int row, int col, char value);
+    char getValue(int row, int col);
 };
 
 
