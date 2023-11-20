@@ -35,7 +35,7 @@ public:
 
     int getCurrentPlayerIndex() const;
 
-    Player getCurrentPlayer();
+    Player &getCurrentPlayer() const;
 
     int getTurnCount() const;
 
@@ -45,7 +45,7 @@ public:
 
     bool isGameEnded() const;
 
-    Board getBoard() const;
+    const Board getBoard() const;
 
 
     void setGameEnded(bool gameState);
@@ -60,6 +60,11 @@ public:
     const TileQueue &getTileQueue() const;
 
     void setTileQueue(const TileQueue &tileQueue);
+
+    bool askForTileExchangeUse();
+
+    bool placeTile();
+
 };
 
 

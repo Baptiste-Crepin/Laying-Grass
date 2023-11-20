@@ -18,7 +18,7 @@ public:
 
     ~Board();
 
-    void display();
+    void display() const;
 
     void setValue(int row, int col, char value);
 

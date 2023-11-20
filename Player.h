@@ -23,6 +23,8 @@ public:
 
     int getExchangeTickets() const;
 
+    void setExchangeTickets(int exchangeTickets);
+
     // const std::string &getName() const;
 };
 
