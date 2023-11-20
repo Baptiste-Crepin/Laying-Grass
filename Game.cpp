@@ -52,8 +52,6 @@ void Game::newTurn() {
         cout << "Queue : " << endl;
         this->getTileQueue().displayQueue();
 
-        //todo: ask player if he wants to exchange a tile (if he has a ticket to exchange)
-
         if (askForTileExchangeUse()) {
             this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
             tileQueue.tileExchange();

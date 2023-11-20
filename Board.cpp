@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "board.h"
+#include "Board.h"
 
 Board::Board(int s) {
     size = s;

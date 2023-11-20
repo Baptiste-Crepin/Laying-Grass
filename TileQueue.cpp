@@ -86,6 +86,6 @@ int TileQueue::selectTileExchangeIndex() {
     do {
         cout << "Please enter a number between 1 and 6" << endl;
         cin >> selectedTile;
-    } while (not(selectedTile >= 1 && selectedTile <= 5));
+    } while (not(selectedTile >= 1 && selectedTile <= 6));
     return selectedTile;
 }
