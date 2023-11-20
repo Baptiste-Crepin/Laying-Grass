@@ -55,7 +55,7 @@ Tile TileQueue::tileExchange() {
 
     int selectedTile = selectTileExchangeIndex();
 
-    this->setCurrentTileIndex((this->getCurrentTileIndex() + selectedTile) % (this->getTotalTiles() + 1));
+    this->setCurrentTileIndex((this->getCurrentTileIndex() + selectedTile - 1) % (this->getTotalTiles() + 1));
     return this->getCurrentTile();
 }
 

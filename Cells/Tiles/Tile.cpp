@@ -21,10 +21,11 @@ Tile::Tile() {}
 
 vector<vector<char>> Tile::retreiveTileLayout() {
     int tileId = id;
+    cout << "Tile id : " << tileId << endl;
     string path =
             "/Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Assets/TilesLayout/Grass/Grass_" +
             to_string(tileId);
-//    string path = "C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_1";
+//    string path = "C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_0";
 
     std::ifstream fichier(path);
 

@@ -57,12 +57,14 @@ void Game::newTurn() {
         if (askForTileExchangeUse()) {
             this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
             tileQueue.tileExchange();
-        } else tileQueue.nextTile();
 
+        }
         this->placeTile();
+        tileQueue.nextTile();
+
 
         this->setNextPlayer();
-        
+
     } while ((this->getCurrentPlayerIndex() < this->getPlayerCount()));
 
     this->setTurnCount(this->getTurnCount() + 1);
