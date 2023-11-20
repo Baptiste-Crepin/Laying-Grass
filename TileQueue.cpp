@@ -53,20 +53,12 @@ Tile TileQueue::tileExchange() {
     }
     cout << endl;
 
-
-//    int selectedTile;
-//    do {
-//        cout << "Please enter a number between 1 and 6" << endl;
-//        cin >> selectedTile;
-//    } while (not(selectedTile >= 1 && selectedTile <= 5));
-
     int selectedTile = selectTileExchangeIndex();
 
-    //todo input number between 1 - 6
-//    int x = selectedTile;
     this->setCurrentTileIndex((this->getCurrentTileIndex() + selectedTile) % (this->getTotalTiles() + 1));
     return this->getCurrentTile();
 }
+
 
 // private methods
 

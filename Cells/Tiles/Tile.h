@@ -6,24 +6,23 @@
 #define LAYINGGRASS_Piece_H
 
 #include <string>
+#include <vector>
 
 //The Tile is the base class for all the different Tiles
 class Tile {
 protected:
     int id;
-    //list of relative coordinates
-    //type = enum (grass, void, bonus)
 
 public:
-//    Tile(int x, int y);
     ~Tile();
 
-    explicit Tile(int id);
+    Tile(int id);
 
     Tile();
 
     int getId() const;
 
+    std::vector<std::vector<char>> retreiveTileLayout();
 };
 
 

@@ -62,6 +62,9 @@ public:
     void setTileQueue(const TileQueue &tileQueue);
 
     bool askForTileExchangeUse();
+
+    bool placeTile();
+
 };
 
 

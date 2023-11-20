@@ -7,6 +7,7 @@
 #include <ctime>
 #include <string>
 #include "Game.h"
+#include <vector>
 
 using namespace std;
 
@@ -58,9 +59,10 @@ void Game::newTurn() {
             tileQueue.tileExchange();
         } else tileQueue.nextTile();
 
+        this->placeTile();
+
         this->setNextPlayer();
-
-
+        
     } while ((this->getCurrentPlayerIndex() < this->getPlayerCount()));
 
     this->setTurnCount(this->getTurnCount() + 1);
@@ -117,4 +119,28 @@ bool Game::askForTileExchangeUse() {
     return input == 'y';
 }
 
+
+bool Game::placeTile() {
+    Tile tile = this->getTileQueue().getCurrentTile();
+    vector<vector<char>> tableau = tile.retreiveTileLayout();
+
+    char t = -2;  // -2 = Grass
+    int x, y;
+    cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
+    cin >> x;
+    cin >> y;
+
+    for (int i = 0; i < tableau.size(); ++i) {
+        for (int j = 0; j < tableau[i].size(); ++j) {
+            if (tableau[i][j] == '1') {
+                board.setValue(i + x, j + y, t);
+            } else {
+                board.setValue(i + x, j + y, '0');
+            }
+
+        }
+    }
+
+    return true; //todo: return false if the tile can't be placed at the specified coordinates
+}
 
