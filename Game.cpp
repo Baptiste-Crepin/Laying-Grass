@@ -47,8 +47,9 @@ void Game::newTurn() {
 
 
     do {
-        cout << this->getCurrentPlayer().getId() << " | " << endl;
         this->getBoard().display();
+
+        cout << "Player " << this->getCurrentPlayerIndex() + 1 << " | " << endl;
         cout << "Queue : " << endl;
         this->getTileQueue().displayQueue();
 
@@ -99,7 +100,7 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
 }
 
 void Game::setNextPlayer() {
-    this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % this->getPlayerCount() + 1);
+    this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % (this->getPlayerCount()));
 }
 
 
