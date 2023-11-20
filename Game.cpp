@@ -17,8 +17,7 @@ Game::Game(int playerCount, int turnLimit) :
         turnCount(0),
         GameEnded(false),
         playerTurnOrder(Game::randomizePlayerTurnOrder(playerCount)),
-        board(Board(playerCount < 5 ? 20 : 30)),
-        tileQueue(TileQueue(playerCount)) {}
+        board(Board(playerCount < 5 ? 20 : 30)){}
 
 int Game::getPlayerCount() const { return playerCount; }
 
@@ -47,13 +46,8 @@ void Game::newTurn() {
 
     do {
         cout << this->getCurrentPlayer().getId() << " | " << endl;
-        this->getBoard().printBoard();
+        this->getBoard().display();
         cout << "Queue : " << endl;
-        this->getTileQueue().displayQueue();
-
-        //todo: ask player if he wants to exchange a tile (if he has a ticket to exchange)
-        cout << tileQueue.tileExchange().getId() << endl;
-        tileQueue.nextTile();
 
         this->setNextPlayer();
 
@@ -89,10 +83,3 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
 void Game::setNextPlayer() {
     this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % this->getPlayerCount() + 1);
 }
-
-
-void Game::setTileQueue(const TileQueue &tileQueue) {
-    Game::tileQueue = tileQueue;
-}
-
-const TileQueue &Game::getTileQueue() const { return this->tileQueue; }

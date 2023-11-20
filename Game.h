@@ -9,7 +9,6 @@
 #include "Board.h"
 #include "Player.h"
 #include "Cells/Tiles/Tile.h"
-#include "TileQueue.h"
 
 class Game {
 private:
@@ -20,7 +19,6 @@ private:
     Player *playerTurnOrder;
     bool GameEnded = false;
     Board board;
-    TileQueue tileQueue;
 
 private:
 
@@ -56,10 +54,6 @@ public:
 
 
     void newTurn();
-
-    const TileQueue &getTileQueue() const;
-
-    void setTileQueue(const TileQueue &tileQueue);
 };
 
 
