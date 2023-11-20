@@ -48,15 +48,23 @@ void TileQueue::setCurrentTileIndex(int currentTileIndex) {
 Tile TileQueue::tileExchange() {
     cout << "Choose a tile to exchange : " << endl;
     this->displayQueue();
-
     for (int i = 0; i < this->getDisplayedTiles(); i++) {
         cout << std::setw(2) << i + 1 << " | ";
     }
     cout << endl;
 
+
+//    int selectedTile;
+//    do {
+//        cout << "Please enter a number between 1 and 6" << endl;
+//        cin >> selectedTile;
+//    } while (not(selectedTile >= 1 && selectedTile <= 5));
+
+    int selectedTile = selectTileExchangeIndex();
+
     //todo input number between 1 - 6
-    int x = 4;
-    this->setCurrentTileIndex((this->getCurrentTileIndex() + x) % (this->getTotalTiles() + 1));
+//    int x = selectedTile;
+    this->setCurrentTileIndex((this->getCurrentTileIndex() + selectedTile) % (this->getTotalTiles() + 1));
     return this->getCurrentTile();
 }
 
@@ -79,4 +87,13 @@ void TileQueue::generateQueue(int nbPlayers) {
     }
 
     queue = tempQueue;
+}
+
+int TileQueue::selectTileExchangeIndex() {
+    int selectedTile;
+    do {
+        cout << "Please enter a number between 1 and 6" << endl;
+        cin >> selectedTile;
+    } while (not(selectedTile >= 1 && selectedTile <= 5));
+    return selectedTile;
 }

@@ -46,6 +46,8 @@ public:
 
     void setCurrentTileIndex(int currentTileIndex);
 
+    int selectTileExchangeIndex();
+
 };
 
 

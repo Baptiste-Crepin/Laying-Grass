@@ -32,7 +32,7 @@ Player *Game::getPlayerTurnOrder() const { return playerTurnOrder; }
 
 bool Game::isGameEnded() const { return GameEnded; }
 
-Board Game::getBoard() const { return board; }
+const Board Game::getBoard() const { return board; }
 
 
 void Game::setCurrentPlayerIndex(int currentPlayerIndex) { Game::currentPlayerIndex = currentPlayerIndex; }
@@ -44,6 +44,7 @@ void Game::setGameEnded(bool gameState) { Game::GameEnded = gameState; }
 void Game::newTurn() {
     cout << "Turn " << this->getTurnCount() << endl;
 
+
     do {
         cout << this->getCurrentPlayer().getId() << " | " << endl;
         this->getBoard().display();
@@ -51,8 +52,11 @@ void Game::newTurn() {
         this->getTileQueue().displayQueue();
 
         //todo: ask player if he wants to exchange a tile (if he has a ticket to exchange)
-//        cout << tileQueue.tileExchange().getId() << endl;
-        tileQueue.nextTile();
+
+        if (askForTileExchangeUse()) {
+            this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
+            tileQueue.tileExchange();
+        } else tileQueue.nextTile();
 
         this->setNextPlayer();
 
@@ -70,7 +74,7 @@ void Game::setTileQueue(const TileQueue &tileQueue) {
     Game::tileQueue = tileQueue;
 }
 
-Player Game::getCurrentPlayer() {
+Player &Game::getCurrentPlayer() const {
     return this->getPlayerTurnOrder()[this->getCurrentPlayerIndex()];
 }
 
@@ -95,3 +99,22 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
 void Game::setNextPlayer() {
     this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % this->getPlayerCount() + 1);
 }
+
+
+bool Game::askForTileExchangeUse() {
+    int currentExchangeTickets = this->getCurrentPlayer().getExchangeTickets();
+    if (currentExchangeTickets < 1) {
+        cout << "You don't have any exchange ticket left, you can't exchange this turn.";
+        return false;
+    }
+
+    char input;
+    do {
+        cout << "You have " << currentExchangeTickets << " ticket(s), do you want to exchange ? (y/n)";
+        cin >> input;
+    } while (input != 'y' && input != 'n');
+
+    return input == 'y';
+}
+
+
