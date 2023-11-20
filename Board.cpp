@@ -9,7 +9,7 @@ Board::Board(int s) {
     size = s;
 
     // Création du tableau à deux dimensions
-    grid = new char*[size];
+    grid = new char *[size];
     for (int i = 0; i < size; ++i) {
         grid[i] = new char[size];
     }
@@ -20,14 +20,17 @@ Board::Board(int s) {
             grid[i][j] = '0';
         }
     }
+
+    std::cout << "Board created" << std::endl;
+    std::cout << grid[0][0] << std::endl;
 }
 
 Board::~Board() {
     // Libération de la mémoire allouée pour le tableau
-    for (int i = 0; i < size; ++i) {
-        delete[] grid[i];
-    }
-    delete[] grid;
+//    for (int i = 0; i < size; ++i) {
+//        delete[] grid[i];
+//    }
+//    delete[] grid;
 }
 
 void Board::display() {
@@ -56,3 +59,7 @@ char Board::getValue(int row, int col) {
     }
 }
 
+
+int Board::getSize() const {
+    return size;
+}

@@ -17,7 +17,8 @@ Game::Game(int playerCount, int turnLimit) :
         turnCount(0),
         GameEnded(false),
         playerTurnOrder(Game::randomizePlayerTurnOrder(playerCount)),
-        board(Board(playerCount < 5 ? 20 : 30)){}
+        board(Board(playerCount < 5 ? 20 : 30)),
+        tileQueue(TileQueue(playerCount)) {}
 
 int Game::getPlayerCount() const { return playerCount; }
 
@@ -40,7 +41,6 @@ void Game::setTurnCount(int turnCount) { Game::turnCount = turnCount; }
 
 void Game::setGameEnded(bool gameState) { Game::GameEnded = gameState; }
 
-
 void Game::newTurn() {
     cout << "Turn " << this->getTurnCount() << endl;
 
@@ -48,14 +48,26 @@ void Game::newTurn() {
         cout << this->getCurrentPlayer().getId() << " | " << endl;
         this->getBoard().display();
         cout << "Queue : " << endl;
+        this->getTileQueue().displayQueue();
+
+        //todo: ask player if he wants to exchange a tile (if he has a ticket to exchange)
+//        cout << tileQueue.tileExchange().getId() << endl;
+        tileQueue.nextTile();
 
         this->setNextPlayer();
 
 
     } while ((this->getCurrentPlayerIndex() < this->getPlayerCount()));
 
-
     this->setTurnCount(this->getTurnCount() + 1);
+}
+
+const TileQueue &Game::getTileQueue() const {
+    return tileQueue;
+}
+
+void Game::setTileQueue(const TileQueue &tileQueue) {
+    Game::tileQueue = tileQueue;
 }
 
 Player Game::getCurrentPlayer() {
@@ -69,7 +81,7 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
     srand(static_cast<unsigned>(time(nullptr)));
 
     Player *playerTurnOrder = new Player[playerCount];
-    string name = "Test"; // Todo: get this a variable from the player
+//    string name = "Test"; // Todo: get this a variable from the player
     for (int i = 0; i <= playerCount; i++) playerTurnOrder[i] = Player(i);
     for (int i = 0; i <= playerCount; i++) {
         int randomIndex = rand() % playerCount;

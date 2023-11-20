@@ -11,14 +11,20 @@
 class Board {
 private:
     int size;
-    char** grid;
+    char **grid;
 
 public:
     Board(int s);
+
     ~Board();
+
     void display();
+
     void setValue(int row, int col, char value);
+
     char getValue(int row, int col);
+
+    int getSize() const;
 };
 
 

@@ -7,7 +7,7 @@
 //Player::Player(int id, std::string name) : id(id), name(name) {}
 int startingTickets = 1;
 
-Player::Player(int id) {}
+Player::Player(int id) : id(id) {}
 
 Player::Player() {}
 

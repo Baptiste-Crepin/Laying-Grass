@@ -12,4 +12,4 @@ add_executable(LayingGrass main.cpp Cells/Tiles/Tile.cpp Cells/Tiles/Tile.h enum
         Horizontal_symmetry.h
         Vertical_symmetry.cpp
         Vertical_symmetry.h
-)
+        TileQueue.cpp TileQueue.h)
