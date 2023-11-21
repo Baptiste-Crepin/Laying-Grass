@@ -74,18 +74,15 @@ Player &Game::getCurrentPlayer() const { return this->getPlayerTurnOrder()[this-
 void Game::startGame() {
 
     //first turn
-    do {
-        cout << "Player " << this->getCurrentPlayerIndex() << " | " << this->getPlayerCount() << endl;
+    this->firstTurn();
 
-        this->getBoard().display();
-        placeTile("StartingTiles/start_0");
-        this->setNextPlayer();
-    } while (this->getCurrentPlayerIndex() > 0);
-
-    //game loop
+    //main loop
     while (not this->isGameEnded() and this->getTurnCount() <= this->getTurnLimit()) {
         this->newTurn();
     }
+
+    //end game
+    this->exchangeLeftoverCoupons();
 }
 
 //region: Private methods
@@ -111,7 +108,6 @@ void Game::setNextPlayer() {
     this->setCurrentPlayerIndex((this->getCurrentPlayerIndex() + 1) % (this->getPlayerCount()));
 }
 
-
 bool Game::askForTileExchangeUse() {
     int currentExchangeTickets = this->getCurrentPlayer().getExchangeTickets();
     if (currentExchangeTickets < 1) {
@@ -119,15 +115,9 @@ bool Game::askForTileExchangeUse() {
         return false;
     }
 
-    char input;
-    do {
-        cout << "You have " << currentExchangeTickets << " ticket(s), do you want to exchange ? (y/n)";
-        cin >> input;
-    } while (input != 'y' && input != 'n');
-
-    return input == 'y';
+    std::string message = "You have " + to_string(currentExchangeTickets) + " ticket(s), do you want to exchange ?";
+    return booleanInput('y', 'n', message);
 }
-
 
 bool Game::placeTile(std::string path) {
 
@@ -155,3 +145,43 @@ bool Game::placeTile(std::string path) {
     return true; //todo: return false if the tile can't be placed at the specified coordinates
 }
 
+void Game::firstTurn() {
+    do {
+        cout << "Player " << this->getCurrentPlayerIndex() << " | " << this->getPlayerCount() << endl;
+
+        this->getBoard().display();
+        placeTile("StartingTiles/start_0");
+        this->setNextPlayer();
+    } while (this->getCurrentPlayerIndex() > 0);
+}
+
+void Game::exchangeLeftoverCoupons() {
+    do {
+        while (this->getCurrentPlayer().getExchangeTickets() > 0) {
+
+            this->getBoard().display();
+            cout << "Player " << this->getCurrentPlayerIndex() << " | " << "You still have "
+                 << this->getCurrentPlayer().getExchangeTickets() << " exchange tickets left."
+                 << endl;
+
+            string message = "Do you want to exchange them ?";
+            if (not booleanInput('y', 'n', message)) break;
+
+            string endTilePath = "EndTiles/coupon";
+            this->placeTile(endTilePath);
+            this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
+        }
+        this->setNextPlayer();
+    } while (this->getCurrentPlayerIndex() > 0);
+};
+
+
+bool Game::booleanInput(char acceptChar, char denyChar, std::string message) {
+    char input;
+    do {
+        cout << message << " (" << acceptChar << "/" << denyChar << ")" << endl;
+        cin >> input;
+    } while (input != acceptChar && input != denyChar);
+
+    return input == acceptChar;
+}

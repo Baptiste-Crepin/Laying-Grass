@@ -5,7 +5,6 @@
 #ifndef LAYINGGRASS_TILEQUEUE_H
 #define LAYINGGRASS_TILEQUEUE_H
 
-
 #include "Cells/Tiles/Tile.h"
 
 class TileQueue {
@@ -15,8 +14,6 @@ private:
     Tile *queue;
     int totalTiles;
     int currentTileIndex;
-
-private:
 
     void generateQueue(int nbPlayers);
 
@@ -29,7 +26,6 @@ public:
 
     int getDisplayedTiles() const;
 
-
     int getTotalTiles() const;
 
     Tile getCurrentTile() const;
@@ -38,16 +34,13 @@ public:
 
     void displayQueue() const;
 
-
     void nextTile();
 
     int getCurrentTileIndex() const;
 
-
     void setCurrentTileIndex(int currentTileIndex);
 
     int selectTileExchangeIndex();
-
 };
 
 

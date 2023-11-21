@@ -31,15 +31,13 @@ vector<vector<char>> Tile::retreiveTileLayout() {
     if (this->path != "") path = basePath + this->path;
     else path = basePath + "Grass/Grass_" + to_string(this->getId());
 
-    cout << path << endl;
     std::ifstream fichier(path);
 
     if (not fichier) {
         std::cerr << "Erreur : Impossible d'ouvrir le fichier." << std::endl;
         exit(100);
     }
-
-    std::cout << "Fichier ouvert !" << std::endl;
+    
     std::vector<std::vector<char>> tableau;
 
     std::string ligne;

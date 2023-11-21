@@ -28,6 +28,12 @@ private:
 
     void setNextPlayer();
 
+    void exchangeLeftoverCoupons();
+
+    bool booleanInput(char acceptChar, char denyChar, std::string message);
+
+    void firstTurn();
+
 public:
     Game(int playerCount, int turnLimit = 9);
 
