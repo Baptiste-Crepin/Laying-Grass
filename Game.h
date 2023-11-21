@@ -65,6 +65,8 @@ public:
 
     bool placeTile();
 
+    void startGame();
+
 };
 
 

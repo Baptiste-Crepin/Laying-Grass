@@ -5,10 +5,7 @@ using namespace std;
 
 int main() {
     Game game = Game(4);
-    while (not game.isGameEnded() and game.getTurnCount() <= game.getTurnLimit()) {
-        cout << game.getBoard().getSize() << endl;
-        game.newTurn();
-    }
+    game.startGame();
 
 
 //    std::vector<std::vector<char>> tableau = retreiveTileLayout();
