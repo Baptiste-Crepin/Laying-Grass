@@ -6,7 +6,7 @@
 #include "Rotate_90.h"
 #include <vector>
 
-std::vector<std::vector<char>> rotation90(const std::vector<std::vector<char>>& matrix) {
+std::vector<std::vector<char>> rotate90(const std::vector<std::vector<char>>& matrix) {
     if (matrix.empty() || matrix[0].empty()) {
         std::cout << "Tableau vide ou sans colonnes." << std::endl;
         return matrix;

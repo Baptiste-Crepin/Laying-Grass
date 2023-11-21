@@ -7,6 +7,6 @@
 
 #include <vector>
 
-std::vector<std::vector<char>> symetrieHorizontale(const std::vector<std::vector<char>>& matrix);
+std::vector<std::vector<char>> horizontal_symmetry(const std::vector<std::vector<char>>& matrix);
 
 #endif //LAYINGGRASS_HORIZONTAL_SYMMETRY_H

@@ -7,15 +7,15 @@
 #include <iostream>
 #include <vector>
 
-std::vector<std::vector<char>> symetrieVerticale(const std::vector<std::vector<char>>& matrix) {
+std::vector<std::vector<char>> vertical_symmetry(const std::vector<std::vector<char>>& matrix) {
     if (matrix.empty() || matrix[0].empty()) {
         std::cout << "Tableau vide ou sans colonnes." << std::endl;
         return matrix;
     }
 
-    std::vector<std::vector<char>> symetrie = matrix;
+    std::vector<std::vector<char>> symmetry = matrix;
 
-    std::reverse(symetrie.begin(), symetrie.end());
+    std::reverse(symmetry.begin(), symmetry.end());
 
-    return symetrie;
+    return symmetry;
 }

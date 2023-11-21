@@ -6,9 +6,14 @@
 #include <iostream>
 #include <iomanip>
 
+
 using namespace std;
 
-TileQueue::TileQueue(int nbPlayers) : totalTiles(round(nbPlayers * tilesPerPLayer)), currentTileIndex(0) {
+//TileQueue::TileQueue(int nbPlayers) : totalTiles(round(nbPlayers * tilesPerPLayer)), currentTileIndex(0) {            //todo round rend la compil impossible sur martin
+//    generateQueue(nbPlayers);
+//}
+
+TileQueue::TileQueue(int nbPlayers) : totalTiles(nbPlayers * tilesPerPLayer), currentTileIndex(0) {
     generateQueue(nbPlayers);
 }
 

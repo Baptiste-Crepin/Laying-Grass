@@ -7,6 +7,6 @@
 
 #include <vector>
 
-std::vector<std::vector<char>> rotation90(const std::vector<std::vector<char>>& matrix);
+std::vector<std::vector<char>> rotate90(const std::vector<std::vector<char>>& matrix);
 
 #endif //LAYINGGRASS_ROTATE_90_H

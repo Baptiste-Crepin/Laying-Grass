@@ -7,19 +7,19 @@
 #include <vector>
 #include <algorithm>
 
-std::vector<std::vector<char>> symetrieHorizontale(const std::vector<std::vector<char>>& matrix) {
+std::vector<std::vector<char>> horizontal_symmetry(const std::vector<std::vector<char>>& matrix) {
     if (matrix.empty() || matrix[0].empty()) {
         std::cout << "Tableau vide ou sans colonnes." << std::endl;
         return matrix;
     }
 
-    std::vector<std::vector<char>> symetrie = matrix;
+    std::vector<std::vector<char>> symmetry = matrix;
 
-    int rows = symetrie.size();
+    int rows = symmetry.size();
 
     for (int i = 0; i < rows; ++i) {
-        std::reverse(symetrie[i].begin(), symetrie[i].end());
+        std::reverse(symmetry[i].begin(), symmetry[i].end());
     }
 
-    return symetrie;
+    return symmetry;
 }
