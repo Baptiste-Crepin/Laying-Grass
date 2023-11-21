@@ -27,8 +27,8 @@ Tile::Tile() {}
 vector<vector<char>> Tile::retreiveTileLayout() {
 
     string basePath = "../Assets/TilesLayout/";
-    if (this->path != "") path = basePath + this->path;
-    else path = basePath + "Grass/Grass_" + to_string(this->getId());
+    if (this->path != "") basePath = basePath + this->path;
+    else basePath = basePath + "Grass/Grass_" + to_string(this->getId());
 
     std::filesystem::path AbsolutePath = this->getAbsolutePath(basePath);
 
