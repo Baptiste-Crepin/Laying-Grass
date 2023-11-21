@@ -7,12 +7,15 @@
 
 #include <string>
 #include <vector>
+#include <filesystem>
 
 //The Tile is the base class for all the different Tiles
 class Tile {
 protected:
     int id;
     std::string path;
+
+    std::filesystem::path getAbsolutePath(std::filesystem::path relativePath);
 
 public:
     ~Tile();

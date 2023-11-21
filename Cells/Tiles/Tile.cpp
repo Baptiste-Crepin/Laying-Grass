@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <filesystem>
+#include <string>
 
 using namespace std;
 
@@ -23,16 +25,8 @@ Tile::Tile(std::string path) : path(path) {}
 Tile::Tile() {}
 
 vector<vector<char>> Tile::retreiveTileLayout() {
-//    int tileId = id;
-//    cout << "Tile id : " << tileId << endl;
-//    string path =
-//            "/Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Assets/TilesLayout/Grass/Grass_" +
-//            to_string(tileId);
-////    string path = "C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_0";
 
-//    string basePath = "C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_";
-    string basePath = "/Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Assets/TilesLayout/";
-    string path;
+    string basePath = this->getAbsolutePath("../Assets/TilesLayout/");
 
     if (this->path != "") path = basePath + this->path;
     else path = basePath + "Grass/Grass_" + to_string(this->getId());
@@ -65,4 +59,13 @@ vector<vector<char>> Tile::retreiveTileLayout() {
 
     fichier.close();
     return tableau;
+}
+
+
+
+//private methods:
+
+std::filesystem::path Tile::getAbsolutePath(std::filesystem::path relativePath) {
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    return currentPath / relativePath;
 }
