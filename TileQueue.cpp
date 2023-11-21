@@ -76,7 +76,7 @@ void TileQueue::generateQueue(int nbPlayers) {
     }
 
     //randomize queue
-    for (int i = 0; i <= this->getTotalTiles(); i++) {
+    for (int i = 0; i < this->getTotalTiles(); i++) {
         int randomIndex = rand() % this->getTotalTiles();
         Tile temp = tempQueue[i];
         tempQueue[i] = tempQueue[randomIndex];
