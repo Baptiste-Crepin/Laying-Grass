@@ -35,7 +35,6 @@ bool Game::isGameEnded() const { return GameEnded; }
 
 const Board Game::getBoard() const { return board; }
 
-
 void Game::setCurrentPlayerIndex(int currentPlayerIndex) { Game::currentPlayerIndex = currentPlayerIndex; }
 
 void Game::setTurnCount(int turnCount) { Game::turnCount = turnCount; }
@@ -43,42 +42,48 @@ void Game::setTurnCount(int turnCount) { Game::turnCount = turnCount; }
 void Game::setGameEnded(bool gameState) { Game::GameEnded = gameState; }
 
 void Game::newTurn() {
-    cout << "Turn " << this->getTurnCount() << endl;
-
-
     do {
         this->getBoard().display();
-
-        cout << "Player " << this->getCurrentPlayerIndex() + 1 << " | " << endl;
+        cout << "Turn " << this->getTurnCount() << endl;
+        cout << "Player " << this->getCurrentPlayerIndex() + 1 << " | " << this->getCurrentPlayer().getId() << endl;
         cout << "Queue : " << endl;
+
         this->getTileQueue().displayQueue();
 
         if (askForTileExchangeUse()) {
             this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
             tileQueue.tileExchange();
-
         }
+
         this->placeTile();
         tileQueue.nextTile();
-
-
         this->setNextPlayer();
 
-    } while ((this->getCurrentPlayerIndex() < this->getPlayerCount()));
+    } while (this->getCurrentPlayerIndex() > 0);
 
     this->setTurnCount(this->getTurnCount() + 1);
 }
 
-const TileQueue &Game::getTileQueue() const {
-    return tileQueue;
-}
+const TileQueue &Game::getTileQueue() const { return tileQueue; }
 
-void Game::setTileQueue(const TileQueue &tileQueue) {
-    Game::tileQueue = tileQueue;
-}
+void Game::setTileQueue(const TileQueue &tileQueue) { Game::tileQueue = tileQueue; }
 
-Player &Game::getCurrentPlayer() const {
-    return this->getPlayerTurnOrder()[this->getCurrentPlayerIndex()];
+Player &Game::getCurrentPlayer() const { return this->getPlayerTurnOrder()[this->getCurrentPlayerIndex()]; }
+
+
+void Game::startGame() {
+
+    do {
+        cout << "Player " << this->getCurrentPlayerIndex() << " | " << this->getPlayerCount() << endl;
+
+        //Todo: placeTile("StartingTiles/start_0.txt");
+        this->setNextPlayer();
+    } while (this->getCurrentPlayerIndex() > 0);
+
+
+    while (not this->isGameEnded() and this->getTurnCount() <= this->getTurnLimit()) {
+        this->newTurn();
+    }
 }
 
 //region: Private methods
@@ -87,15 +92,16 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
     //gets a seed based on the current time for the rand() function
     srand(static_cast<unsigned>(time(nullptr)));
 
-    Player *playerTurnOrder = new Player[playerCount];
+    Player *playerTurnOrder = new Player[playerCount - 1];
 //    string name = "Test"; // Todo: get this a variable from the player
-    for (int i = 0; i <= playerCount; i++) playerTurnOrder[i] = Player(i);
-    for (int i = 0; i <= playerCount; i++) {
+    for (int i = 0; i < playerCount; i++) playerTurnOrder[i] = Player(i);
+    for (int i = 0; i < playerCount; i++) {
         int randomIndex = rand() % playerCount;
         Player temp = playerTurnOrder[i];
         playerTurnOrder[i] = playerTurnOrder[randomIndex];
         playerTurnOrder[randomIndex] = temp;
     }
+
     return playerTurnOrder;
 }
 
