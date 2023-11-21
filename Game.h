@@ -63,7 +63,7 @@ public:
 
     bool askForTileExchangeUse();
 
-    bool placeTile();
+    bool placeTile(std::string path = "");
 
     void startGame();
 

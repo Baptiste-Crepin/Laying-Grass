@@ -73,14 +73,16 @@ Player &Game::getCurrentPlayer() const { return this->getPlayerTurnOrder()[this-
 
 void Game::startGame() {
 
+    //first turn
     do {
         cout << "Player " << this->getCurrentPlayerIndex() << " | " << this->getPlayerCount() << endl;
 
-        //Todo: placeTile("StartingTiles/start_0.txt");
+        this->getBoard().display();
+        placeTile("StartingTiles/start_0");
         this->setNextPlayer();
     } while (this->getCurrentPlayerIndex() > 0);
 
-
+    //game loop
     while (not this->isGameEnded() and this->getTurnCount() <= this->getTurnLimit()) {
         this->newTurn();
     }
@@ -127,8 +129,10 @@ bool Game::askForTileExchangeUse() {
 }
 
 
-bool Game::placeTile() {
-    Tile tile = this->getTileQueue().getCurrentTile();
+bool Game::placeTile(std::string path) {
+
+    // if a path is specified, open it, else open the current tile
+    Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
     vector<vector<char>> tableau = tile.retreiveTileLayout();
 
     char t = -2;  // -2 = Grass

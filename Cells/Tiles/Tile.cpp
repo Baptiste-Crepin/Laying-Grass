@@ -17,16 +17,27 @@ int Tile::getId() const { return id; }
 
 Tile::Tile(int id) : id(id) {}
 
+Tile::Tile(std::string path) : path(path) {}
+
+
 Tile::Tile() {}
 
 vector<vector<char>> Tile::retreiveTileLayout() {
-    int tileId = id;
-    cout << "Tile id : " << tileId << endl;
-    string path =
-            "/Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Assets/TilesLayout/Grass/Grass_" +
-            to_string(tileId);
-//    string path = "C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_0";
+//    int tileId = id;
+//    cout << "Tile id : " << tileId << endl;
+//    string path =
+//            "/Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Assets/TilesLayout/Grass/Grass_" +
+//            to_string(tileId);
+////    string path = "C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_0";
 
+//    string basePath = "C:\\Users\\martin\\Documents\\SUPINFO\\CPP_eval\\Laying-Grass\\Assets\\TilesLayout\\Grass\\Grass_";
+    string basePath = "/Users/baptistecrepin/Desktop/Code/GitHub/Supinfo/projets/LayingGrass/Assets/TilesLayout/";
+    string path;
+
+    if (this->path != "") path = basePath + this->path;
+    else path = basePath + "Grass/Grass_" + to_string(this->getId());
+
+    cout << path << endl;
     std::ifstream fichier(path);
 
     if (not fichier) {

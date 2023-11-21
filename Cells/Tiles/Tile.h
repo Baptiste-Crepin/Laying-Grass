@@ -12,11 +12,14 @@
 class Tile {
 protected:
     int id;
+    std::string path;
 
 public:
     ~Tile();
 
     Tile(int id);
+
+    Tile(std::string path);
 
     Tile();
 
