@@ -11,6 +11,7 @@
 
 using namespace std;
 
+
 Game::Game(int playerCount, int turnLimit) :
         playerCount(playerCount),
         turnLimit(turnLimit),
@@ -21,6 +22,7 @@ Game::Game(int playerCount, int turnLimit) :
         board(Board(playerCount < 5 ? 20 : 30)),
         tileQueue(TileQueue(playerCount)) {}
 
+//region: Getters and Setters
 int Game::getPlayerCount() const { return playerCount; }
 
 int Game::getCurrentPlayerIndex() const { return currentPlayerIndex; }
@@ -40,6 +42,14 @@ void Game::setCurrentPlayerIndex(int currentPlayerIndex) { Game::currentPlayerIn
 void Game::setTurnCount(int turnCount) { Game::turnCount = turnCount; }
 
 void Game::setGameEnded(bool gameState) { Game::GameEnded = gameState; }
+
+const TileQueue &Game::getTileQueue() const { return tileQueue; }
+
+void Game::setTileQueue(const TileQueue &tileQueue) { Game::tileQueue = tileQueue; }
+
+//endregion
+
+//region: Public methods
 
 void Game::newTurn() {
     do {
@@ -64,12 +74,8 @@ void Game::newTurn() {
     this->setTurnCount(this->getTurnCount() + 1);
 }
 
-const TileQueue &Game::getTileQueue() const { return tileQueue; }
-
-void Game::setTileQueue(const TileQueue &tileQueue) { Game::tileQueue = tileQueue; }
 
 Player &Game::getCurrentPlayer() const { return this->getPlayerTurnOrder()[this->getCurrentPlayerIndex()]; }
-
 
 void Game::startGame() {
 
@@ -84,6 +90,23 @@ void Game::startGame() {
     //end game
     this->exchangeLeftoverCoupons();
 }
+
+//endregion
+
+//region: Static methods
+
+Game Game::initializeGame() {
+    cout << "Welcome to Laying Grass" << endl;
+    cout << "How many players are there ?" << endl;
+    int playerCount;
+    do {
+        cout << "Please enter a number between 2 and 9" << endl;
+        cin >> playerCount;
+    } while (playerCount < 2 || playerCount > 9);
+    return Game(playerCount);
+}
+
+// endregion
 
 //region: Private methods
 
@@ -185,3 +208,5 @@ bool Game::booleanInput(char acceptChar, char denyChar, std::string message) {
 
     return input == acceptChar;
 }
+
+//endregion

@@ -35,6 +35,8 @@ private:
     void firstTurn();
 
 public:
+    static Game initializeGame();
+
     Game(int playerCount, int turnLimit = 9);
 
     int getPlayerCount() const;

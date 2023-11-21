@@ -4,8 +4,11 @@
 using namespace std;
 
 int main() {
-    Game game = Game(4);
+    Game game = Game::initializeGame();
     game.startGame();
+
+//    Game game = Game(4);
+//    game.startGame();
 
 
 //    std::vector<std::vector<char>> tableau = retreiveTileLayout();
