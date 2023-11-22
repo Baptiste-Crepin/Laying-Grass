@@ -26,7 +26,7 @@ void Cell::setX(int x) { this->x = x; }
 
 void Cell::setY(int y) { this->y = y; }
 
-void Cell::applyBonus() {
+void Cell::applyBonus(Player &player) {
     cout << "Cell::applyBonus()" << endl;
     // TODO implement here
 }

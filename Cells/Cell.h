@@ -7,6 +7,7 @@
 
 
 #include "../enums/CellTypeEnum.h"
+#include "../Player.h"
 
 //A cell represents a 1x1 on the map
 class Cell {
@@ -34,7 +35,7 @@ public:
 
     void setY(int y);
 
-    virtual void applyBonus();
+    virtual void applyBonus(Player &player);
 };
 
 

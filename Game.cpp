@@ -185,8 +185,12 @@ bool Game::placeTile(std::string path) {
                             cout << "ACTIVATED" << endl;
                             Board b = this->getBoard();
                             shared_ptr<Cell> c = b.getValue(0, 0);
-                            c->applyBonus();
+                            c->applyBonus(this->getCurrentPlayer());
                             cout << "ACTIVATED" << endl;
+                            Cell cell = Cell(neighbor->getX(), neighbor->getY(), CellTypeEnum::Grass);
+                            b.setValue(neighbor->getX(), neighbor->getY(), std::make_shared<Cell>(cell));
+                            this->setBoard(b);
+
                         }
                     }
 
@@ -267,7 +271,7 @@ void Game::generateBonuses() {
             generatedBonuses += 1;
         }
     }
-    
+
     TileExchange cell = TileExchange();
     board.setValue(0, 0, std::make_shared<TileExchange>(cell));
     this->setBoard(board);
