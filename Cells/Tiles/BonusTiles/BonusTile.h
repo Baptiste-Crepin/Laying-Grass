@@ -6,13 +6,15 @@
 #define LAYINGGRASS_BONUSTILE_H
 
 
+#include "../../../enums/CellTypeEnum.h"
+
 class BonusTile {
 protected:
     double tilesPerPlayer;
-    char Label;
+    CellTypeEnum type;
 
 public:
-    explicit BonusTile(char label = 'B', double tilesPerPlayer = 0);
+    explicit BonusTile(CellTypeEnum type, double tilesPerPlayer = 0);
 
     double getTilesPerPlayer() const;
 
@@ -20,7 +22,7 @@ public:
 
     virtual ~BonusTile();
 
-    char getLabel();
+    CellTypeEnum getType();
 };
 
 

@@ -17,15 +17,23 @@ private:
 
 public:
     Cell() : x(0), y(0), type(Void) {}
+
     Cell(int x, int y, CellTypeEnum type = Void);
+
     ~Cell();
 
     int getX() const;
+
     int getY() const;
+
     CellTypeEnum getType() const;
 
+    char getLabel() const;
+
     void setX(int x);
+
     void setY(int y);
+
     void setType(CellTypeEnum type);
 };
 
