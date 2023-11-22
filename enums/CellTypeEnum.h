@@ -7,9 +7,12 @@
 
 
 enum CellTypeEnum {
-    Void,
-    Grass,
-    Bonus
+    Void = '.',
+    Grass = 'G',
+    Bonus_Exchange = 'E',
+    Bonus_Stone = 'S',
+    Bonus_Robbery = 'R',
+
 };
 
 #endif //LAYINGGRASS_CELLTYPEENUM_H

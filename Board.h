@@ -7,11 +7,12 @@
 
 #include <vector>
 #include <iostream>
+#include "Cells/Cell.h"
 
 class Board {
 private:
     int size;
-    char **grid;
+    Cell **grid;
 
 public:
     Board(int s);
@@ -20,9 +21,9 @@ public:
 
     void display() const;
 
-    void setValue(int row, int col, char value) const;
+    void setValue(int row, int col, Cell value) const;
 
-    char getValue(int row, int col) const;
+    Cell getValue(int row, int col) const;
 
     int getSize() const;
 };
