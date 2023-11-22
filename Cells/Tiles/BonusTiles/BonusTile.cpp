@@ -4,10 +4,10 @@
 
 #include "BonusTile.h"
 
-BonusTile::BonusTile(int tilesPerPlayer) : tilesPerPlayer(tilesPerPlayer) {}
+BonusTile::BonusTile(char label, double tilesPerPlayer) : Label(label), tilesPerPlayer(tilesPerPlayer) {}
 
 BonusTile::~BonusTile() {}
 
-int BonusTile::getTilesPerPlayer() const { return tilesPerPlayer; }
+double BonusTile::getTilesPerPlayer() const { return tilesPerPlayer; }
 
-
+char BonusTile::getLabel() { return Label; }

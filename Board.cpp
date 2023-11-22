@@ -42,7 +42,7 @@ void Board::display() const {
     }
 }
 
-void Board::setValue(int row, int col, char value) {
+void Board::setValue(int row, int col, char value) const {
     if (row >= 0 && row < size && col >= 0 && col < size) {
         grid[row][col] = value;
     } else {

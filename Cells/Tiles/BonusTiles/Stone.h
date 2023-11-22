@@ -9,12 +9,11 @@
 #include "BonusTile.h"
 
 class Stone : public BonusTile {
-protected:
-    int tilesPerPlayer = 0.5;
 
 public:
-    void applyBonus() override;
+    explicit Stone(char label = 'S', double tilesPerPlayer = 0.5);
 
+    void applyBonus() override;
 };
 
 

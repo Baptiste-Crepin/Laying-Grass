@@ -3,3 +3,10 @@
 //
 
 #include "Robbery.h"
+
+Robbery::Robbery(char label, double tilesPerPlayer) : BonusTile(label, tilesPerPlayer) {}
+
+
+void Robbery::applyBonus() {
+    // TODO implement here
+}

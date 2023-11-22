@@ -9,12 +9,12 @@
 #include "BonusTile.h"
 
 class TileExchange : public BonusTile {
-protected:
-    int tilesPerPlayer = 1.5;
-
 public:
-    void applyBonus() override;
+    explicit TileExchange(char label = 'E', double tilesPerPlayer = 1.5);
 
+    ~TileExchange() override;
+
+    void applyBonus() override;
 };
 
 

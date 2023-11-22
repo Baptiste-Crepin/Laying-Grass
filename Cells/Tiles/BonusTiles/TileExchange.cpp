@@ -3,3 +3,11 @@
 //
 
 #include "TileExchange.h"
+
+TileExchange::TileExchange(char label, double tilesPerPlayer) : BonusTile(label, tilesPerPlayer) {}
+
+TileExchange::~TileExchange() {}
+
+void TileExchange::applyBonus() {
+    // TODO implement here
+}

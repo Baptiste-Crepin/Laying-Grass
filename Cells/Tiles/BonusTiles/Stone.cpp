@@ -3,3 +3,9 @@
 //
 
 #include "Stone.h"
+
+Stone::Stone(char label, double tilesPerPlayer) : BonusTile(label, tilesPerPlayer) {}
+
+void Stone::applyBonus() {
+    // TODO implement here
+}

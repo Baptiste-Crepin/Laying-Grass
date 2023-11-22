@@ -8,16 +8,19 @@
 
 class BonusTile {
 protected:
-    int tilesPerPlayer = 0;
-public:
-    explicit BonusTile(int tilesPerPlayer);
-
-    int getTilesPerPlayer() const;
+    double tilesPerPlayer;
+    char Label;
 
 public:
+    explicit BonusTile(char label = 'B', double tilesPerPlayer = 0);
+
+    double getTilesPerPlayer() const;
+
     virtual void applyBonus() = 0;
 
     virtual ~BonusTile();
+
+    char getLabel();
 };
 
 
