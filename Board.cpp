@@ -50,7 +50,7 @@ void Board::setValue(int row, int col, char value) const {
     }
 }
 
-char Board::getValue(int row, int col) {
+char Board::getValue(int row, int col) const {
     if (row >= 0 && row < size && col >= 0 && col < size) {
         return grid[row][col];
     } else {

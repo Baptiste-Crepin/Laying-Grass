@@ -222,12 +222,17 @@ void Game::generateBonuses() {
         double generatedBonuses = 0;
 
         while (generatedBonuses < this->getPlayerCount() * bonusTile->getTilesPerPlayer()) {
-            int randomX = (rand() % (this->getBoard().getSize() - 2)) + 1;
-            int randomY = (rand() % (this->getBoard().getSize() - 2)) + 1;
-
-            //todo: add a check to see if the tile is already occupied
-            this->getBoard().setValue(randomX, randomY, bonusTile->getLabel());
+            bool placed = false;
             
+            do {
+                int randomX = (rand() % (this->getBoard().getSize() - 2)) + 1;
+                int randomY = (rand() % (this->getBoard().getSize() - 2)) + 1;
+                if (this->getBoard().getValue(randomX, randomY) == '0') {
+                    this->getBoard().setValue(randomX, randomY, bonusTile->getLabel());
+                    placed = true;
+                }
+            } while (not placed);
+
             generatedBonuses += 1;
         }
     }
