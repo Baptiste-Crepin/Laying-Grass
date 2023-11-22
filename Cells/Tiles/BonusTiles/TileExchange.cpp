@@ -4,7 +4,7 @@
 
 #include "TileExchange.h"
 
-TileExchange::TileExchange(char label, double tilesPerPlayer) : BonusTile(label, tilesPerPlayer) {}
+TileExchange::TileExchange(double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Exchange, tilesPerPlayer) {}
 
 TileExchange::~TileExchange() {}
 

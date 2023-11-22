@@ -154,7 +154,7 @@ bool Game::placeTile(std::string path) {
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
     vector<vector<char>> tableau = tile.retreiveTileLayout();
 
-    char t = -2;  // -2 = Grass
+//    char t = -2;  // -2 = Grass
     int x, y;
     cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
     cin >> x;
@@ -163,9 +163,9 @@ bool Game::placeTile(std::string path) {
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
             if (tableau[i][j] == '1') {
-                board.setValue(i + x, j + y, t);
+                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
             } else {
-                board.setValue(i + x, j + y, '0');
+                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Void));
             }
 
         }
@@ -223,12 +223,13 @@ void Game::generateBonuses() {
 
         while (generatedBonuses < this->getPlayerCount() * bonusTile->getTilesPerPlayer()) {
             bool placed = false;
-            
+
             do {
                 int randomX = (rand() % (this->getBoard().getSize() - 2)) + 1;
                 int randomY = (rand() % (this->getBoard().getSize() - 2)) + 1;
-                if (this->getBoard().getValue(randomX, randomY) == '0') {
-                    this->getBoard().setValue(randomX, randomY, bonusTile->getLabel());
+                if (this->getBoard().getValue(randomX, randomY).getType() == CellTypeEnum::Void) {
+                    Cell cell = Cell(randomX, randomY, bonusTile->getType());
+                    this->getBoard().setValue(randomX, randomY, cell);
                     placed = true;
                 }
             } while (not placed);

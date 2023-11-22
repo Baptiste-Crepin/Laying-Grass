@@ -10,7 +10,7 @@
 
 class TileExchange : public BonusTile {
 public:
-    explicit TileExchange(char label = 'E', double tilesPerPlayer = 1.5);
+    explicit TileExchange(double tilesPerPlayer = 1.5);
 
     ~TileExchange() override;
 

@@ -4,10 +4,10 @@
 
 #include "BonusTile.h"
 
-BonusTile::BonusTile(char label, double tilesPerPlayer) : Label(label), tilesPerPlayer(tilesPerPlayer) {}
+BonusTile::BonusTile(CellTypeEnum type, double tilesPerPlayer) : type(type), tilesPerPlayer(tilesPerPlayer) {}
 
 BonusTile::~BonusTile() {}
 
 double BonusTile::getTilesPerPlayer() const { return tilesPerPlayer; }
 
-char BonusTile::getLabel() { return Label; }
+CellTypeEnum BonusTile::getType() { return type; }

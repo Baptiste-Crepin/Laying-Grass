@@ -4,7 +4,7 @@
 
 #include "Stone.h"
 
-Stone::Stone(char label, double tilesPerPlayer) : BonusTile(label, tilesPerPlayer) {}
+Stone::Stone(double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Stone, tilesPerPlayer) {}
 
 void Stone::applyBonus() {
     // TODO implement here
