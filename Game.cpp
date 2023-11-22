@@ -170,48 +170,9 @@ bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) 
             cout << "Cell placed at " << i + x << " " << j + y << endl;
             board.setValue(i + x, j + y, Cell(i + x, j + y, type));
 
-            vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
-            for (auto &neighbor: neighbors) {
-                cout << neighbor.getX() << " " << neighbor.getY() << " " << neighbor.getLabel() << endl;
-                if (neighbor.getType() != CellTypeEnum::Void && neighbor.getType() != CellTypeEnum::Grass) {
-
-                    vector<Cell> t = this->getBoard().getAdjacentNeighbors(neighbor.getX(),
-                                                                           neighbor.getY());
-                    cout << "Neighbors of the neighbor" << endl;
-                    bool voidNeighbor = false;
-                    for (auto &n: t) {
-                        if (n.getType() == CellTypeEnum::Void) voidNeighbor = true;
-                    }
-
-                    if (not voidNeighbor) {
-                        cout << "ACTIVATED" << endl;
-                        switch (neighbor.getType()) {
-                            case CellTypeEnum::Bonus_Stone:
-                                this->placeTile("Bonuses/Stone_0", true, CellTypeEnum::Stone_Tile);
-                                break;
-                            case CellTypeEnum::Bonus_Robbery:
-                                Robbery::applyBonus();
-                                break;
-                            case CellTypeEnum::Bonus_Exchange:
-                                TileExchange::applyBonus(this->getCurrentPlayer());
-                                break;
-                            default:
-                                break;
-                        }
-                        Cell cell = Cell(neighbor.getX(), neighbor.getY(), CellTypeEnum::Grass);
-                        this->getBoard().setValue(neighbor.getX(), neighbor.getY(),
-                                                  cell);
-
-                    }
-                }
-
-            }
-
+            handleBonuses(i + x, j + y);
         }
-
     }
-
-
     return true; //todo: return false if the tile can't be placed at the specified coordinates
 }
 
@@ -280,6 +241,42 @@ void Game::generateBonuses() {
     }
     Cell cell = Cell(0, 0, CellTypeEnum::Bonus_Stone);
     this->getBoard().setValue(0, 0, cell);
+}
+
+void Game::handleBonuses(int x, int y) {
+    vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(x, y);
+    for (auto &neighbor: neighbors) {
+        cout << neighbor.getX() << " " << neighbor.getY() << " " << neighbor.getLabel() << endl;
+        if (neighbor.getType() != CellTypeEnum::Void && neighbor.getType() != CellTypeEnum::Grass) {
+
+            vector<Cell> bonusNeighbor = this->getBoard().getAdjacentNeighbors(neighbor.getX(), neighbor.getY());
+            bool voidNeighbor = false;
+            for (auto &c: bonusNeighbor) if (c.getType() == CellTypeEnum::Void) voidNeighbor = true;
+
+
+            if (not voidNeighbor) {
+                switch (neighbor.getType()) {
+                    case CellTypeEnum::Bonus_Stone:
+                        this->placeTile("Bonuses/Stone_0", true, CellTypeEnum::Stone_Tile);
+                        break;
+                    case CellTypeEnum::Bonus_Robbery:
+                        //Todo: implement Robbery when territory is implemented
+                        Robbery::applyBonus();
+                        break;
+                    case CellTypeEnum::Bonus_Exchange:
+                        TileExchange::applyBonus(this->getCurrentPlayer());
+                        break;
+                    default:
+                        break;
+                }
+
+                //replaces the bonus tile with a grass tile
+                Cell cell = Cell(neighbor.getX(), neighbor.getY(), CellTypeEnum::Grass);
+                this->getBoard().setValue(neighbor.getX(), neighbor.getY(), cell);
+            }
+        }
+
+    }
 }
 
 //endregion
