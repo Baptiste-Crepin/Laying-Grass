@@ -148,7 +148,7 @@ bool Game::askForTileExchangeUse() {
     return booleanInput('y', 'n', message);
 }
 
-bool Game::placeTile(std::string path) {
+bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) {
 
     // if a path is specified, open it, else open the current tile
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
@@ -162,15 +162,17 @@ bool Game::placeTile(std::string path) {
 
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
-            if (tableau[i][j] == '1') {
-                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
-            } else {
-                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Void));
-            }
+            if (not(tableau[i][j] == '1')) continue;
+            cout << "Cell placed  " << i + x << " " << j + y << endl;
+            //a cell is placed at the specified coordinates
+            //todo: check if the tile can be placed at the specified coordinates if ignoreTerritory == false
 
+            cout << "Cell placed at " << i + x << " " << j + y << endl;
+            board.setValue(i + x, j + y, Cell(i + x, j + y, type));
+
+            handleBonuses(i + x, j + y);
         }
     }
-
     return true; //todo: return false if the tile can't be placed at the specified coordinates
 }
 
@@ -236,6 +238,44 @@ void Game::generateBonuses() {
 
             generatedBonuses += 1;
         }
+    }
+    Cell cell = Cell(0, 0, CellTypeEnum::Bonus_Stone);
+    this->getBoard().setValue(0, 0, cell);
+}
+
+void Game::handleBonuses(int x, int y) {
+    vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(x, y);
+    for (auto &neighbor: neighbors) {
+        cout << neighbor.getX() << " " << neighbor.getY() << " " << neighbor.getLabel() << endl;
+        if (neighbor.getType() != CellTypeEnum::Void && neighbor.getType() != CellTypeEnum::Grass) {
+
+            vector<Cell> bonusNeighbor = this->getBoard().getAdjacentNeighbors(neighbor.getX(), neighbor.getY());
+            bool voidNeighbor = false;
+            for (auto &c: bonusNeighbor) if (c.getType() == CellTypeEnum::Void) voidNeighbor = true;
+
+
+            if (not voidNeighbor) {
+                switch (neighbor.getType()) {
+                    case CellTypeEnum::Bonus_Stone:
+                        this->placeTile("Bonuses/Stone_0", true, CellTypeEnum::Stone_Tile);
+                        break;
+                    case CellTypeEnum::Bonus_Robbery:
+                        //Todo: implement Robbery when territory is implemented
+                        Robbery::applyBonus();
+                        break;
+                    case CellTypeEnum::Bonus_Exchange:
+                        TileExchange::applyBonus(this->getCurrentPlayer());
+                        break;
+                    default:
+                        break;
+                }
+
+                //replaces the bonus tile with a grass tile
+                Cell cell = Cell(neighbor.getX(), neighbor.getY(), CellTypeEnum::Grass);
+                this->getBoard().setValue(neighbor.getX(), neighbor.getY(), cell);
+            }
+        }
+
     }
 }
 

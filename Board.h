@@ -26,6 +26,8 @@ public:
     Cell getValue(int row, int col) const;
 
     int getSize() const;
+
+    std::vector<Cell> getAdjacentNeighbors(int row, int col) const;
 };
 
 

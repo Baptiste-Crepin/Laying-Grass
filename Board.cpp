@@ -65,3 +65,23 @@ Cell Board::getValue(int row, int col) const {
 int Board::getSize() const {
     return size;
 }
+
+std::vector<Cell> Board::getAdjacentNeighbors(int row, int col) const {
+    std::vector<Cell> neighbors;
+
+    // Relative positions of four adjacent neighbors (up, down, left, right)
+    int dx[] = {-1, 0, 0, 1};
+    int dy[] = {0, -1, 1, 0};
+
+    for (int i = 0; i < 4; ++i) {
+        int newRow = row + dx[i];
+        int newCol = col + dy[i];
+
+        // Check if the new position is within the bounds of the grid
+        if (newRow >= 0 && newRow < this->getSize() && newCol >= 0 && newCol < this->getSize()) {
+            neighbors.push_back(this->getValue(newRow, newCol));
+        }
+    }
+
+    return neighbors;
+}

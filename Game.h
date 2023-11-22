@@ -12,8 +12,8 @@
 #include "TileQueue.h"
 
 class Game {
-private:
-    const int playerCount; // TODO: min 2, max 9
+protected:
+    const int playerCount;
     int currentPlayerIndex;
     int turnCount = 0;
     const int turnLimit = 9;
@@ -21,8 +21,6 @@ private:
     bool GameEnded = false;
     Board board;
     TileQueue tileQueue;
-
-private:
 
     Player *randomizePlayerTurnOrder(int playerCount);
 
@@ -35,6 +33,8 @@ private:
     void firstTurn();
 
     void generateBonuses();
+
+    void handleBonuses(int x, int y);
 
 public:
     static Game initializeGame();
@@ -73,7 +73,7 @@ public:
 
     bool askForTileExchangeUse();
 
-    bool placeTile(std::string path = "");
+    bool placeTile(std::string path = "", bool ignoreTerritory = false, CellTypeEnum type = CellTypeEnum::Grass);
 
     void startGame();
 

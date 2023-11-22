@@ -7,6 +7,7 @@
 
 
 #include "BonusTile.h"
+#include "../../../Player.h"
 
 class TileExchange : public BonusTile {
 public:
@@ -14,7 +15,7 @@ public:
 
     ~TileExchange() override;
 
-    void applyBonus() override;
+    static void applyBonus(Player &player);
 };
 
 
