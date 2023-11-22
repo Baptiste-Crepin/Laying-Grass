@@ -4,7 +4,7 @@
 
 #include "Robbery.h"
 
-Robbery::Robbery(double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Robbery, tilesPerPlayer) {}
+Robbery::Robbery(int x, int y, double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Robbery, x, y, tilesPerPlayer) {}
 
 
 void Robbery::applyBonus() {

@@ -7,22 +7,20 @@
 
 
 #include "../../../enums/CellTypeEnum.h"
+#include "../../Cell.h"
 
-class BonusTile {
+class BonusTile : public Cell {
 protected:
     double tilesPerPlayer;
-    CellTypeEnum type;
 
 public:
-    explicit BonusTile(CellTypeEnum type, double tilesPerPlayer = 0);
+    explicit BonusTile(CellTypeEnum type, int x = 0, int y = 0, double tilesPerPlayer = 0);
 
     double getTilesPerPlayer() const;
 
-    virtual void applyBonus() = 0;
+    virtual void applyBonus();
 
     virtual ~BonusTile();
-
-    CellTypeEnum getType();
 };
 
 

@@ -11,7 +11,7 @@
 class Stone : public BonusTile {
 
 public:
-    explicit Stone(double tilesPerPlayer = 0.5);
+    explicit Stone(int x = 0, int y = 0, double tilesPerPlayer = 0.5);
 
     void applyBonus() override;
 };

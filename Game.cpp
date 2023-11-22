@@ -39,8 +39,6 @@ Player *Game::getPlayerTurnOrder() const { return playerTurnOrder; }
 
 bool Game::isGameEnded() const { return GameEnded; }
 
-const Board Game::getBoard() const { return board; }
-
 void Game::setCurrentPlayerIndex(int currentPlayerIndex) { Game::currentPlayerIndex = currentPlayerIndex; }
 
 void Game::setTurnCount(int turnCount) { Game::turnCount = turnCount; }
@@ -149,29 +147,56 @@ bool Game::askForTileExchangeUse() {
 }
 
 bool Game::placeTile(std::string path) {
-
+    cout << "Place tile" << endl;
     // if a path is specified, open it, else open the current tile
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
     vector<vector<char>> tableau = tile.retreiveTileLayout();
 
-//    char t = -2;  // -2 = Grass
     int x, y;
     cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
     cin >> x;
     cin >> y;
 
+    cout << "x: " << x << " y: " << y << endl;
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
             if (tableau[i][j] == '1') {
-                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
-            } else {
-                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Void));
+                cout << "Cell placed  " << i + x << " " << j + y << endl;
+                //a cell is placed at the specified coordinates
+                //todo: check if the tile can be placed at the specified coordinates
+
+                cout << "Cell placed at " << i + x << " " << j + y << endl;
+                board.setValue(i + x, j + y, std::make_shared<Cell>(i + x, j + y, CellTypeEnum::Grass));
+
+                vector<shared_ptr<Cell>> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
+                for (auto &neighbor: neighbors) {
+                    cout << neighbor->getX() << " " << neighbor->getY() << " " << neighbor->getLabel() << endl;
+                    if (neighbor->getType() != CellTypeEnum::Void && neighbor->getType() != CellTypeEnum::Grass) {
+
+                        vector<shared_ptr<Cell>> t = this->getBoard().getAdjacentNeighbors(neighbor->getX(),
+                                                                                           neighbor->getY());
+                        cout << "Neighbors of the neighbor" << endl;
+                        bool voidNeighbor = false;
+                        for (auto &n: t) {
+                            if (n->getType() == CellTypeEnum::Void) voidNeighbor = true;
+                        }
+
+                        if (not voidNeighbor) {
+                            cout << "ACTIVATED" << endl;
+                            Board b = this->getBoard();
+                            shared_ptr<Cell> c = b.getValue(0, 0);
+                            c->applyBonus();
+                            cout << "ACTIVATED" << endl;
+                        }
+                    }
+
+                }
+
             }
-
         }
-    }
 
-    return true; //todo: return false if the tile can't be placed at the specified coordinates
+        return true; //todo: return false if the tile can't be placed at the specified coordinates
+    }
 }
 
 void Game::firstTurn() {
@@ -216,20 +241,25 @@ bool Game::booleanInput(char acceptChar, char denyChar, std::string message) {
 }
 
 void Game::generateBonuses() {
+    cout << "Generating bonuses" << endl;
     BonusTile *bonusTiles[3] = {new Stone(), new Robbery(), new TileExchange()};
 
     for (auto &bonusTile: bonusTiles) {
         double generatedBonuses = 0;
-
         while (generatedBonuses < this->getPlayerCount() * bonusTile->getTilesPerPlayer()) {
             bool placed = false;
 
             do {
                 int randomX = (rand() % (this->getBoard().getSize() - 2)) + 1;
                 int randomY = (rand() % (this->getBoard().getSize() - 2)) + 1;
-                if (this->getBoard().getValue(randomX, randomY).getType() == CellTypeEnum::Void) {
-                    Cell cell = Cell(randomX, randomY, bonusTile->getType());
-                    this->getBoard().setValue(randomX, randomY, cell);
+                if (this->getBoard().getValue(randomX, randomY)->getType() == CellTypeEnum::Void) {
+//                    BonusTile cell = BonusTile(bonusTile->getType(), randomX, randomY);
+//                    Board board = this->getBoard();
+//                    board.setValue(randomX, randomY, cell);
+                    BonusTile cell = BonusTile(bonusTile->getType(), randomX, randomY);
+                    Board board = this->getBoard();
+                    board.setValue(randomX, randomY, std::make_shared<BonusTile>(cell));
+                    this->setBoard(board);
                     placed = true;
                 }
             } while (not placed);
@@ -237,6 +267,18 @@ void Game::generateBonuses() {
             generatedBonuses += 1;
         }
     }
+    
+    TileExchange cell = TileExchange();
+    board.setValue(0, 0, std::make_shared<TileExchange>(cell));
+    this->setBoard(board);
+}
+
+void Game::setBoard(const Board &board) {
+    Game::board = board;
+}
+
+const Board &Game::getBoard() const {
+    return board;
 }
 
 //endregion

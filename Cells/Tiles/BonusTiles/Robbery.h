@@ -10,7 +10,7 @@
 
 class Robbery : public BonusTile {
 public:
-    explicit Robbery(double tilesPerPlayer = 1);
+    explicit Robbery(int x = 0, int y = 0, double tilesPerPlayer = 1);
 
     void applyBonus() override;
 

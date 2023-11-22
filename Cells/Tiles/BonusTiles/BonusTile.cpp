@@ -3,11 +3,17 @@
 //
 
 #include "BonusTile.h"
+#include <iostream>
 
-BonusTile::BonusTile(CellTypeEnum type, double tilesPerPlayer) : type(type), tilesPerPlayer(tilesPerPlayer) {}
+
+BonusTile::BonusTile(CellTypeEnum type, int x, int y, double tilesPerPlayer) : Cell(x, y, type),
+                                                                               tilesPerPlayer(tilesPerPlayer) {}
 
 BonusTile::~BonusTile() {}
 
 double BonusTile::getTilesPerPlayer() const { return tilesPerPlayer; }
 
-CellTypeEnum BonusTile::getType() { return type; }
+void BonusTile::applyBonus() {
+    std::cout << "BonusTile::applyBonus()" << std::endl;
+    // TODO implement here
+}

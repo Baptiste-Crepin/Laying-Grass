@@ -12,7 +12,7 @@
 class Board {
 private:
     int size;
-    Cell **grid;
+    std::vector<std::vector<std::shared_ptr<Cell>>> grid;
 
 public:
     Board(int s);
@@ -21,11 +21,17 @@ public:
 
     void display() const;
 
-    void setValue(int row, int col, Cell value) const;
-
-    Cell getValue(int row, int col) const;
+    void setValue(int row, int col, const std::shared_ptr<Cell> &value);
+    
+    std::shared_ptr<Cell> getValue(int row, int col) const;
 
     int getSize() const;
+
+    std::vector<std::shared_ptr<Cell>> getAdjacentNeighbors(int row, int col) const;
+
+    const std::vector<std::vector<std::shared_ptr<Cell>>> &getGrid() const;
+//    const std::vector<std::vector<std::shared_ptr<Cell>>> &getValue() const;
+
 };
 
 

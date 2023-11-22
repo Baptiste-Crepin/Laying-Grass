@@ -55,10 +55,12 @@ public:
 
     bool isGameEnded() const;
 
-    const Board getBoard() const;
+    void setBoard(const Board &board);
 
 
     void setGameEnded(bool gameState);
+
+    const Board &getBoard() const;
 
     void setCurrentPlayerIndex(int currentPlayerIndex);
 

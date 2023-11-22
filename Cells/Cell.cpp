@@ -3,6 +3,10 @@
 //
 
 #include "Cell.h"
+#include <iostream>
+#include <vector>
+
+using namespace std;
 
 Cell::Cell(int x, int y, CellTypeEnum type) : x(x), y(y), type(type) {}
 
@@ -22,4 +26,7 @@ void Cell::setX(int x) { this->x = x; }
 
 void Cell::setY(int y) { this->y = y; }
 
-void Cell::setType(CellTypeEnum type) { this->type = type; }
+void Cell::applyBonus() {
+    cout << "Cell::applyBonus()" << endl;
+    // TODO implement here
+}

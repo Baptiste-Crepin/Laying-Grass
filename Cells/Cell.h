@@ -34,7 +34,7 @@ public:
 
     void setY(int y);
 
-    void setType(CellTypeEnum type);
+    virtual void applyBonus();
 };
 
 
