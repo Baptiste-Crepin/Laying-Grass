@@ -3,11 +3,15 @@
 //
 
 #include "TileExchange.h"
+#include <iostream>
+
+using namespace std;
 
 TileExchange::TileExchange(double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Exchange, tilesPerPlayer) {}
 
 TileExchange::~TileExchange() {}
 
-void TileExchange::applyBonus() {
-    // TODO implement here
+void TileExchange::applyBonus(Player &player) {
+    cout << "TileExchange bonus applied" << endl;
+    player.setExchangeTickets(player.getExchangeTickets() + 1);
 }

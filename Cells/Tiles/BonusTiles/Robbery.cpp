@@ -3,10 +3,13 @@
 //
 
 #include "Robbery.h"
+#include <iostream>
+
+using namespace std;
 
 Robbery::Robbery(double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Robbery, tilesPerPlayer) {}
 
 
 void Robbery::applyBonus() {
-    // TODO implement here
+    cout << "Robbery bonus applied" << endl;
 }

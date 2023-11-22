@@ -3,9 +3,12 @@
 //
 
 #include "Stone.h"
+#include <iostream>
+
+using namespace std;
 
 Stone::Stone(double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Stone, tilesPerPlayer) {}
 
 void Stone::applyBonus() {
-    // TODO implement here
+    cout << "Stone bonus applied" << endl;
 }

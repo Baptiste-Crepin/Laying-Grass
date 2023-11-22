@@ -12,7 +12,7 @@ class Robbery : public BonusTile {
 public:
     explicit Robbery(double tilesPerPlayer = 1);
 
-    void applyBonus() override;
+    static void applyBonus();
 
 };
 

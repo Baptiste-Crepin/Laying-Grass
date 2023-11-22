@@ -13,7 +13,7 @@ class Stone : public BonusTile {
 public:
     explicit Stone(double tilesPerPlayer = 0.5);
 
-    void applyBonus() override;
+    static void applyBonus();
 };
 
 

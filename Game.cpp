@@ -162,14 +162,58 @@ bool Game::placeTile(std::string path) {
 
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
-            if (tableau[i][j] == '1') {
-                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
-            } else {
-                board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Void));
+            if (not(tableau[i][j] == '1')) continue;
+
+            board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
+
+            cout << "Cell placed  " << i + x << " " << j + y << endl;
+            //a cell is placed at the specified coordinates
+            //todo: check if the tile can be placed at the specified coordinates
+
+            cout << "Cell placed at " << i + x << " " << j + y << endl;
+            board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
+
+            vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
+            for (auto &neighbor: neighbors) {
+                cout << neighbor.getX() << " " << neighbor.getY() << " " << neighbor.getLabel() << endl;
+                if (neighbor.getType() != CellTypeEnum::Void && neighbor.getType() != CellTypeEnum::Grass) {
+
+                    vector<Cell> t = this->getBoard().getAdjacentNeighbors(neighbor.getX(),
+                                                                           neighbor.getY());
+                    cout << "Neighbors of the neighbor" << endl;
+                    bool voidNeighbor = false;
+                    for (auto &n: t) {
+                        if (n.getType() == CellTypeEnum::Void) voidNeighbor = true;
+                    }
+
+                    if (not voidNeighbor) {
+                        cout << "ACTIVATED" << endl;
+                        switch (neighbor.getType()) {
+                            case CellTypeEnum::Bonus_Stone:
+                                Stone::applyBonus();
+                                break;
+                            case CellTypeEnum::Bonus_Robbery:
+                                Robbery::applyBonus();
+                                break;
+                            case CellTypeEnum::Bonus_Exchange:
+                                TileExchange::applyBonus(this->getCurrentPlayer());
+                                break;
+                            default:
+                                break;
+                        }
+                        Cell cell = Cell(neighbor.getX(), neighbor.getY(), CellTypeEnum::Grass);
+                        this->getBoard().setValue(neighbor.getX(), neighbor.getY(),
+                                                  cell);
+
+                    }
+                }
+
             }
 
         }
+
     }
+
 
     return true; //todo: return false if the tile can't be placed at the specified coordinates
 }
@@ -237,6 +281,8 @@ void Game::generateBonuses() {
             generatedBonuses += 1;
         }
     }
+    Cell cell = Cell(0, 0, CellTypeEnum::Bonus_Exchange);
+    this->getBoard().setValue(0, 0, cell);
 }
 
 //endregion

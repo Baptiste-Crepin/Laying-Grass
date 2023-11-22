@@ -18,8 +18,6 @@ public:
 
     double getTilesPerPlayer() const;
 
-    virtual void applyBonus() = 0;
-
     virtual ~BonusTile();
 
     CellTypeEnum getType();
