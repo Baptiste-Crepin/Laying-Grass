@@ -148,7 +148,7 @@ bool Game::askForTileExchangeUse() {
     return booleanInput('y', 'n', message);
 }
 
-bool Game::placeTile(std::string path) {
+bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) {
 
     // if a path is specified, open it, else open the current tile
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
@@ -163,15 +163,12 @@ bool Game::placeTile(std::string path) {
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
             if (not(tableau[i][j] == '1')) continue;
-
-            board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
-
             cout << "Cell placed  " << i + x << " " << j + y << endl;
             //a cell is placed at the specified coordinates
-            //todo: check if the tile can be placed at the specified coordinates
+            //todo: check if the tile can be placed at the specified coordinates if ignoreTerritory == false
 
             cout << "Cell placed at " << i + x << " " << j + y << endl;
-            board.setValue(i + x, j + y, Cell(i + x, j + y, CellTypeEnum::Grass));
+            board.setValue(i + x, j + y, Cell(i + x, j + y, type));
 
             vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
             for (auto &neighbor: neighbors) {
@@ -190,7 +187,7 @@ bool Game::placeTile(std::string path) {
                         cout << "ACTIVATED" << endl;
                         switch (neighbor.getType()) {
                             case CellTypeEnum::Bonus_Stone:
-                                Stone::applyBonus();
+                                this->placeTile("Bonuses/Stone_0", true, CellTypeEnum::Stone_Tile);
                                 break;
                             case CellTypeEnum::Bonus_Robbery:
                                 Robbery::applyBonus();
@@ -281,7 +278,7 @@ void Game::generateBonuses() {
             generatedBonuses += 1;
         }
     }
-    Cell cell = Cell(0, 0, CellTypeEnum::Bonus_Exchange);
+    Cell cell = Cell(0, 0, CellTypeEnum::Bonus_Stone);
     this->getBoard().setValue(0, 0, cell);
 }
 

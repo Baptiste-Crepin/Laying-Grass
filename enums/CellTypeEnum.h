@@ -9,8 +9,9 @@
 enum CellTypeEnum {
     Void = '.',
     Grass = 'G',
+    Stone_Tile = 'S',
     Bonus_Exchange = 'E',
-    Bonus_Stone = 'S',
+    Bonus_Stone = 'T',
     Bonus_Robbery = 'R',
 
 };

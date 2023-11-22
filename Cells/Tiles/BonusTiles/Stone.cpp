@@ -10,5 +10,6 @@ using namespace std;
 Stone::Stone(double tilesPerPlayer) : BonusTile(CellTypeEnum::Bonus_Stone, tilesPerPlayer) {}
 
 void Stone::applyBonus() {
+
     cout << "Stone bonus applied" << endl;
 }
