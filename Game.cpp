@@ -8,6 +8,10 @@
 #include <string>
 #include "Game.h"
 #include <vector>
+#include "Cells/Tiles/BonusTiles/BonusTile.h"
+#include "Cells/Tiles/BonusTiles/Stone.h"
+#include "Cells/Tiles/BonusTiles/Robbery.h"
+#include "Cells/Tiles/BonusTiles/TileExchange.h"
 
 using namespace std;
 
@@ -103,7 +107,9 @@ Game Game::initializeGame() {
         cout << "Please enter a number between 2 and 9" << endl;
         cin >> playerCount;
     } while (playerCount < 2 || playerCount > 9);
-    return Game(playerCount);
+    Game game = Game(playerCount);
+    game.generateBonuses();
+    return game;
 }
 
 // endregion
@@ -207,6 +213,29 @@ bool Game::booleanInput(char acceptChar, char denyChar, std::string message) {
     } while (input != acceptChar && input != denyChar);
 
     return input == acceptChar;
+}
+
+void Game::generateBonuses() {
+    BonusTile *bonusTiles[3] = {new Stone(), new Robbery(), new TileExchange()};
+
+    for (auto &bonusTile: bonusTiles) {
+        double generatedBonuses = 0;
+
+        while (generatedBonuses < this->getPlayerCount() * bonusTile->getTilesPerPlayer()) {
+            bool placed = false;
+            
+            do {
+                int randomX = (rand() % (this->getBoard().getSize() - 2)) + 1;
+                int randomY = (rand() % (this->getBoard().getSize() - 2)) + 1;
+                if (this->getBoard().getValue(randomX, randomY) == '0') {
+                    this->getBoard().setValue(randomX, randomY, bonusTile->getLabel());
+                    placed = true;
+                }
+            } while (not placed);
+
+            generatedBonuses += 1;
+        }
+    }
 }
 
 //endregion

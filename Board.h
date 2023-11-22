@@ -20,9 +20,9 @@ public:
 
     void display() const;
 
-    void setValue(int row, int col, char value);
+    void setValue(int row, int col, char value) const;
 
-    char getValue(int row, int col);
+    char getValue(int row, int col) const;
 
     int getSize() const;
 };

@@ -34,6 +34,8 @@ private:
 
     void firstTurn();
 
+    void generateBonuses();
+
 public:
     static Game initializeGame();
 
