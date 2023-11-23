@@ -100,6 +100,8 @@ public:
 
     void setTileId(int tileId);
 
+    static int charToInt(char c);
+
 };
 
 

@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Board.h"
 #include "enums/CellTypeEnum.h"
+#include <iomanip>
+#include "Game.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[38;2;255;0;0m"
@@ -49,7 +51,7 @@ Board::~Board() {
 
 void Board::display() const {
     // Affichage des indices de colonnes
-    std::cout << "  "; // Espace pour l'alignement avec les colonnes
+    std::cout << "   "; // Espace pour l'alignement avec les colonnes
     for (int i = 0; i < size; ++i) {
         char colIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
         std::cout << colIndex << " ";
@@ -58,8 +60,8 @@ void Board::display() const {
 
     for (int i = 0; i < size; ++i) {
         // Affichage de l'indice de ligne et début de la bordure gauche
-        char rowIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
-        std::cout << rowIndex << "|";
+//        char rowIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
+        std::cout << std::setw(2) << i << "|";
 
         for (int j = 0; j < size; ++j) {
             std::string color = grid[i][j].getColor();
@@ -176,8 +178,11 @@ void Board::removeStone() const {
     int x, y;
     bool removed = false;
     do {
-        std::cout << "Enter the coordinates of the stone to remove (x y): ";
-        std::cin >> x >> y;
+        std::cout << "Enter the coordinates of the stone to remove: ";
+        char tempChar;
+        std::cin >> x;
+        std::cin >> tempChar;
+        y = Game::charToInt(tempChar);
         if (this->getValue(x, y).getType() == CellTypeEnum::Stone_Tile) {
             this->setValue(x, y, Cell(x, y, "", CellTypeEnum::Void));
             removed = true;

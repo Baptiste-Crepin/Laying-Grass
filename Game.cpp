@@ -148,7 +148,8 @@ Game Game::initializeGame() {
 //region: Private methods
 
 bool verif_color(char color) {
-    if (color == 'r' || color == 'g' || color == 'b' || color == 'y' || color == 'p' || color == 'o' || color == 'c' || color == 't' || color == 'm') {
+    if (color == 'r' || color == 'g' || color == 'b' || color == 'y' || color == 'p' || color == 'o' || color == 'c' ||
+        color == 't' || color == 'm') {
         return true;
     } else {
         return false;
@@ -442,8 +443,13 @@ void Game::activeRobberyBonus() {
     cout << "Enter the coordinates of the tile you want to steal" << endl;
     bool valid = false;
     do {
+        char tempChar;
         int x, y;
-        cin >> x >> y;
+        cout << "X: " << endl;
+        cin >> x;
+        cout << "char Y: " << endl;
+        cin >> tempChar;
+        y = charToInt(tempChar);
         Cell chosenCell = this->getBoard().getValue(x, y);
         if (chosenCell.getType() == CellTypeEnum::Grass &&
             chosenCell.getColor() != this->getCurrentPlayer().getColor()) {
@@ -487,14 +493,24 @@ bool Game::askPlacableCoordinates(std::string path, bool ignoreTerritory, CellTy
     bool placeable = false;
 
     do {
+        char tempChar;
         cout << "Please enter valid coordinates for the tile (top left) x, y:" << endl;
         if (tileLayout.size() > 1 || tileLayout[0].size() > 1) tileLayout = choice_tiles(tileLayout);
         cout << "X: " << endl;
         cin >> x;
-        cout << "Y: " << endl;
-        cin >> y;
+        cout << "char Y: " << endl;
+        cin >> tempChar;
+        y = charToInt(tempChar);
+        cout << "x: " << x << " y: " << y << endl;
+
         placeable = placeTile(x, y, tileLayout, ignoreTerritory, type);
     } while (not placeable);
+}
+
+int Game::charToInt(char c) {
+    if (islower(c)) c = toupper(c);
+    int result = c - 'A';
+    return result;
 }
 
 //endregion
