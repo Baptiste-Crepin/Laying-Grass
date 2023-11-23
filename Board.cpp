@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Board.h"
 #include "enums/CellTypeEnum.h"
+
 #define RESET   "\033[0m"
 #define RED     "\033[38;2;255;0;0m"
 #define GREEN   "\033[38;2;0;255;0m"
@@ -65,13 +66,13 @@ void Board::display() const {
 
             switch (color[0]) {
                 case 'r':
-                    std::cout << RED << grid[i][j].getLabel() << RESET;
+                    std::cout << RED << grid[i][j].getTileId() << RESET;
                     break;
                 case 'g':
-                    std::cout << GREEN << grid[i][j].getLabel() << RESET;
+                    std::cout << GREEN << grid[i][j].getTileId() << RESET;
                     break;
                 case 'y':
-                    std::cout << YELLOW << grid[i][j].getLabel() << RESET;
+                    std::cout << YELLOW << grid[i][j].getTileId() << RESET;
                     break;
                 case 'b':
                     std::cout << BLUE << grid[i][j].getLabel() << RESET;
@@ -92,7 +93,8 @@ void Board::display() const {
                     std::cout << TURQUOISE << grid[i][j].getLabel() << RESET;
                     break;
                 default:
-                    std::cout << grid[i][j].getLabel();
+                    std::cout << (grid[i][j].getType() == CellTypeEnum::Grass) ? grid[i][j].getTileId() :
+                    grid[i][j].getLabel();
                     break;
             }
 
@@ -110,7 +112,6 @@ void Board::display() const {
     }
     std::cout << std::endl;
 }
-
 
 
 void Board::setValue(int row, int col, Cell value) const {
