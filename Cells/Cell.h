@@ -6,18 +6,21 @@
 
 
 #include "../enums/CellTypeEnum.h"
+#include <string>
 
 //A cell represents a 1x1 on the map
+
 class Cell {
 private:
     int x;
     int y;
+    std::string color;
     CellTypeEnum type;
 
 public:
     Cell() : x(0), y(0), type(Void) {}
 
-    Cell(int x, int y, CellTypeEnum type = Void);
+    Cell(int x, int y, std::string color, CellTypeEnum type = Void);
 
     ~Cell();
 
