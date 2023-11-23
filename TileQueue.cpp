@@ -45,12 +45,17 @@ void TileQueue::displayQueue() const {
 
             for (char val: layout[row]) {
                 // Print the value of the current cell chosing the right encoding
-                const char* output;
+                const char *output;
 
                 if (val == '1') {
-                    if (OS_NAME == "macOs") output = "■";
-                    if (OS_NAME == "Windows") output = reinterpret_cast<const char *>(u8"\u2B1C");
-                    if (OS_NAME == "Other") output = "X";
+                    if (strcmp(OS_NAME, "Windows") == 0) {
+                        //todo: find a way to display unicode on windows
+                        output = reinterpret_cast<const char *>(u8"\u2B1C");
+                    } else if (strcmp(OS_NAME, "macOS") == 0) {
+                        output = "■";
+                    } else {
+                        output = "X";
+                    }
                 } else {
                     output = " ";
                 }
