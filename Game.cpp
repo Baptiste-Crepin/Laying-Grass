@@ -74,6 +74,21 @@ void Game::newTurn() {
 
         this->getTileQueue().displayQueue();
 
+        if (this->getBoard().inBoard(CellTypeEnum::Stone_Tile)) {
+            cout << "There are stones on the board" << endl;
+            bool removeStone = this->booleanInput('y',
+                                                  'n',
+                                                  "Do you wish to destroy one for one exchange ticket");
+            if (removeStone) {
+                this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
+                this->getBoard().removeStone();
+                this->getBoard().display();
+                this->getCurrentPlayer().getExchangeTickets();
+                this->getTileQueue().displayQueue();
+            }
+
+        }
+
         if (askForTileExchangeUse()) {
             this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
             tileQueue.tileExchange();
@@ -178,7 +193,7 @@ void Game::setNextPlayer() {
 bool Game::askForTileExchangeUse() {
     int currentExchangeTickets = this->getCurrentPlayer().getExchangeTickets();
     if (currentExchangeTickets < 1) {
-        cout << "You don't have any exchange ticket left, you can't exchange this turn.";
+        cout << "You don't have any exchange ticket left, you can't exchange this turn." << endl;
         return false;
     }
 
@@ -355,7 +370,7 @@ bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau) {
             }
         }
     }
-    
+
     return nextToOwnTerritory;
 }
 

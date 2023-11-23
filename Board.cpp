@@ -85,3 +85,29 @@ std::vector<Cell> Board::getAdjacentNeighbors(int row, int col) const {
 
     return neighbors;
 }
+
+bool Board::inBoard(CellTypeEnum type) const {
+    for (int i = 0; i < this->getSize(); ++i) {
+        for (int j = 0; j < this->getSize(); ++j) {
+            if (this->getValue(i, j).getType() == type) {
+                return true;
+            }
+        }
+    }
+}
+
+void Board::removeStone() const {
+    this->display();
+    int x, y;
+    bool removed = false;
+    do {
+        std::cout << "Enter the coordinates of the stone to remove (x y): ";
+        std::cin >> x >> y;
+        if (this->getValue(x, y).getType() == CellTypeEnum::Stone_Tile) {
+            this->setValue(x, y, Cell(x, y, "b", CellTypeEnum::Void));
+            removed = true;
+        } else {
+            std::cout << "This is not a stone tile" << std::endl;
+        }
+    } while (not removed);
+}

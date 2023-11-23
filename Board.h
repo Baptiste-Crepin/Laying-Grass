@@ -28,6 +28,10 @@ public:
     int getSize() const;
 
     std::vector<Cell> getAdjacentNeighbors(int row, int col) const;
+
+    bool inBoard(CellTypeEnum type) const;
+
+    void removeStone() const;
 };
 
 
