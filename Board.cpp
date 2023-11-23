@@ -6,6 +6,8 @@
 #include "Board.h"
 #include "enums/CellTypeEnum.h"
 
+using namespace std;
+
 Board::Board(int s) {
     size = s;
 
@@ -22,8 +24,8 @@ Board::Board(int s) {
         }
     }
 
-    std::cout << "Board created" << std::endl;
-    std::cout << grid[0][0].getType() << std::endl;
+    cout << "Board created" << endl;
+    cout << grid[0][0].getType() << endl;
 }
 
 Board::~Board() {
@@ -37,30 +39,34 @@ Board::~Board() {
 void Board::display() const {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            std::cout << grid[i][j].getLabel() << " ";
+            cout << grid[i][j].getLabel() << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
 void Board::setValue(int row, int col, Cell value) const {
-    if (row >= 0 && row < size && col >= 0 && col < size) {
-        grid[row][col] = value;
-    } else {
-        std::cout << "Indices hors limites !" << std::endl;
-    }
+    bool valid = false;
+    do {
+        cout << row << " " << col << endl;
+        if (row >= 0 && row < size && col >= 0 && col < size) {
+            grid[row][col] = value;
+            return;
+        } else {
+            cout << "Out of bounds !" << endl;
+            cout << "Enter the coordinates of the stone to remove (x y): " << endl;
+            cin >> row >> col;
+        }
+    } while (not valid);
 }
 
 Cell Board::getValue(int row, int col) const {
     if (row >= 0 && row < size && col >= 0 && col < size) {
         return grid[row][col];
     } else {
-        std::cout << "Indices hors limites !" << std::endl;
-        //todo: handle error
-        exit(100);
+        std::cout << "Out of bounds !" << std::endl;
     }
 }
-
 
 int Board::getSize() const {
     return size;

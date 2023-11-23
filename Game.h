@@ -40,7 +40,7 @@ protected:
 
     void handleBonuses(int x, int y);
 
-    bool isValidPlacement(int x, int y, std::vector<std::vector<char>> tableau);
+    bool isValidPlacement(int x, int y, std::vector<std::vector<char>> tableau, bool ignoreTerritory = false);
 
     void stealCell(Cell Cell);
 
