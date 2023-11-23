@@ -209,7 +209,7 @@ void Game::exchangeLeftoverCoupons() {
             if (not booleanInput('y', 'n', message)) break;
 
             string endTilePath = "EndTiles/coupon";
-            this->placeTile(endTilePath);
+            this->placeTile(endTilePath, true);
             this->getCurrentPlayer().setExchangeTickets(this->getCurrentPlayer().getExchangeTickets() - 1);
         }
         this->setNextPlayer();

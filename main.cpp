@@ -7,10 +7,6 @@ int main() {
     Game game = Game::initializeGame();
     game.startGame();
 
-//    Game game = Game(4);
-//    game.startGame();
-
-
 //    std::vector<std::vector<char>> tableau = retreiveTileLayout();
 //    //TEST ROTAION SYMETRIE
 //    for (const auto &row: tableau) {
