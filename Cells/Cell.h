@@ -20,6 +20,8 @@ private:
 public:
     Cell() : x(0), y(0), type(Void) {}
 
+    const std::string &getColor() const;
+
     Cell(int x, int y, std::string color, CellTypeEnum type = Void);
 
     ~Cell();
