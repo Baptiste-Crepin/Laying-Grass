@@ -14,7 +14,7 @@
 #include "Cells/Tiles/BonusTiles/Robbery.h"
 #include "Cells/Tiles/BonusTiles/TileExchange.h"
 #include "Cells/Cell.h"
-#include "Choice_tiles.h"
+#include "Placement/Choice_tiles.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
