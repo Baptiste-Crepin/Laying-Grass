@@ -22,6 +22,9 @@ protected:
     bool GameEnded = false;
     Board board;
     TileQueue tileQueue;
+    int tileId = 1; // 0 is reserved for the void tile
+
+protected:
 
     Player *randomizePlayerTurnOrder(int playerCount);
 
@@ -38,6 +41,10 @@ protected:
     void handleBonuses(int x, int y);
 
     bool isValidPlacement(int x, int y, std::vector<std::vector<char>> tableau);
+
+    void stealCell(Cell Cell);
+
+    void activeRobberyBonus();
 
 public:
     static Game initializeGame();
@@ -60,7 +67,7 @@ public:
 
     const Board getBoard() const;
 
-    void getPlayerInfoFromUser(std::string& playerName, char& playerColor);
+    void getPlayerInfoFromUser(std::string &playerName, char &playerColor);
 
     void setGameEnded(bool gameState);
 
@@ -80,6 +87,10 @@ public:
     bool placeTile(std::string path = "", bool ignoreTerritory = false, CellTypeEnum type = CellTypeEnum::Grass);
 
     void startGame();
+
+    int getTileId() const;
+
+    void setTileId(int tileId);
 
 };
 
