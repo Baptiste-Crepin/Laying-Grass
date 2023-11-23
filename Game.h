@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Cells/Tiles/Tile.h"
 #include "TileQueue.h"
+#include <vector>
 
 class Game {
 protected:
@@ -35,6 +36,8 @@ protected:
     void generateBonuses();
 
     void handleBonuses(int x, int y);
+
+    bool isValidPlacement(int x, int y, std::vector<std::vector<char>> tableau);
 
 public:
     static Game initializeGame();

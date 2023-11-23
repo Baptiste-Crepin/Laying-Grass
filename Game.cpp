@@ -154,23 +154,33 @@ bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) 
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
     vector<vector<char>> tableau = tile.retreiveTileLayout();
 
-//    char t = -2;  // -2 = Grass
     int x, y;
-    cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
-    cin >> x;
-    cin >> y;
+    bool placeable = true;
+    if (not ignoreTerritory) {
+        do {
+            cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
+            cin >> x;
+            cin >> y;
+            placeable = isValidPlacement(x, y, tableau);
+        } while (not placeable);
+    } else {
+        cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
+        cin >> x;
+        cin >> y;
+    }
+
 
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
             if (not(tableau[i][j] == '1')) continue;
             cout << "Cell placed  " << i + x << " " << j + y << endl;
-            //a cell is placed at the specified coordinates
             //todo: check if the tile can be placed at the specified coordinates if ignoreTerritory == false
+
 
             cout << "Cell placed at " << i + x << " " << j + y << endl;
             board.setValue(i + x, j + y, Cell(i + x, j + y, type));
-
             handleBonuses(i + x, j + y);
+
         }
     }
     return true; //todo: return false if the tile can't be placed at the specified coordinates
@@ -277,6 +287,21 @@ void Game::handleBonuses(int x, int y) {
         }
 
     }
+}
+
+
+bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau) {
+    for (int i = 0; i < tableau.size(); ++i) {
+        for (int j = 0; j < tableau[i].size(); ++j) {
+            CellTypeEnum cellType = this->getBoard().getValue(i + x, j + y).getType();
+            if (cellType == CellTypeEnum::Grass || cellType == CellTypeEnum::Stone_Tile) {
+                cout << "Invalid placement " << endl;
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 //endregion
