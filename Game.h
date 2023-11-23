@@ -47,8 +47,8 @@ protected:
 
     void activeRobberyBonus();
 
-    bool
-    isPlacable(std::vector<std::vector<char>> tileLayout, bool ignoreTerritory = false);
+//    bool
+//    isPlacable(std::vector<std::vector<char>> tileLayout, bool ignoreTerritory = false);
 
     bool askPlacableCoordinates(std::string path = "", bool ignoreTerritory = false,
                                 CellTypeEnum type = CellTypeEnum::Grass);

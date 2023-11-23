@@ -255,12 +255,12 @@ bool Game::placeTile(int x, int y, vector<vector<char>> tileLayout, bool ignoreT
 //    if (tileLayout.size() > 1 || tileLayout[0].size() > 1) tileLayout = choice_tiles(tileLayout);
 
     //check if the tile is placable
-    if (not this->isPlacable(tileLayout, ignoreTerritory)) {
-        cout << "Tile not placable" << endl;
-        return false;
-    } else {
-        cout << "Tile placable" << endl;
-    }
+//    if (not this->isPlacable(tileLayout, ignoreTerritory)) {
+//        cout << "Tile not placable" << endl;
+//        return false;
+//    } else {
+//        cout << "Tile placable" << endl;
+//    }
 
     bool placeable = isValidPlacement(x, y, tileLayout, ignoreTerritory);
     if (not placeable) return false;
@@ -485,7 +485,7 @@ bool Game::askPlacableCoordinates(std::string path, bool ignoreTerritory, CellTy
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
     vector<vector<char>> tileLayout = tile.retreiveTileLayout();
 
-    if (not this->isPlacable(tileLayout, ignoreTerritory)) return false;
+//    if (not this->isPlacable(tileLayout, ignoreTerritory)) return false;
 
     int x, y;
     bool placeable = false;
