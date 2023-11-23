@@ -18,7 +18,7 @@ Board::Board(int s) {
     // Initialisation du tableau avec des valeurs par défaut, par exemple des espaces
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            grid[i][j] = Cell(i, j, CellTypeEnum::Void);
+            grid[i][j] = Cell(i, j, "b", CellTypeEnum::Void);
         }
     }
 

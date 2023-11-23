@@ -4,7 +4,7 @@
 
 #include "Cell.h"
 
-Cell::Cell(int x, int y, CellTypeEnum type) : x(x), y(y), type(type) {}
+Cell::Cell(int x, int y, std::string color, CellTypeEnum type) : x(x), y(y), color(color),type(type){}
 
 Cell::~Cell() {}
 
@@ -23,3 +23,4 @@ void Cell::setX(int x) { this->x = x; }
 void Cell::setY(int y) { this->y = y; }
 
 void Cell::setType(CellTypeEnum type) { this->type = type; }
+

@@ -60,6 +60,7 @@ public:
 
     const Board getBoard() const;
 
+    void getPlayerInfoFromUser(std::string& playerName, char& playerColor);
 
     void setGameEnded(bool gameState);
 

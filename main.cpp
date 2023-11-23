@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Game.h"
+#include "victory_condition.h"
 
 using namespace std;
 
