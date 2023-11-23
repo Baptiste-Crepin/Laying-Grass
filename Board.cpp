@@ -112,6 +112,23 @@ void Board::display() const {
     std::cout << std::endl;
 }
 
+//return the value of each cell and transform it into a int in a board
+std::vector<std::vector<int>> Board::getBoard() const {
+    std::vector<std::vector<int>> board;
+    for (int i = 0; i < size; ++i) {
+        std::vector<int> row;
+        for (int j = 0; j < size; ++j) {
+            row.push_back(grid[i][j].getfill());
+        }
+        board.push_back(row);
+    }
+    return board;
+}
+
+//get the color of the cell at x and y
+std::string Board::getColor(int x, int y) const {
+    return grid[x][y].getColor();
+}
 
 void Board::setValue(int row, int col, Cell value) const {
     bool valid = false;
