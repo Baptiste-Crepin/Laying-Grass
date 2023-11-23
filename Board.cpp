@@ -38,7 +38,6 @@ Board::Board(int s) {
     }
 
     cout << "Board created" << endl;
-    cout << grid[0][0].getType() << endl;
 }
 
 Board::~Board() {
@@ -136,7 +135,6 @@ std::string Board::getColor(int x, int y) const {
 void Board::setValue(int row, int col, Cell value) const {
     bool valid = false;
     do {
-        cout << row << " " << col << endl;
         if (row >= 0 && row < size && col >= 0 && col < size) {
             grid[row][col] = value;
             return;

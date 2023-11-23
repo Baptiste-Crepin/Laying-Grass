@@ -228,9 +228,8 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
     //gets a seed based on the current time for the rand() function
     srand(static_cast<unsigned>(time(nullptr)));
 
-    Player *playerTurnOrder = new Player[playerCount];  //todo: MODIF POUR TEST [playerCount- 1]; de base
+    Player *playerTurnOrder = new Player[playerCount];
     for (int i = 0; i < playerCount; i++) {
-        cout << i << endl;
         cout << "Player " << i + 1 << " Choose your name" << endl;
         std::string name;
         cin >> name;
@@ -367,9 +366,6 @@ void Game::generateBonuses() {
             generatedBonuses += 1;
         }
     }
-    //todo: delete this test tile
-    Cell cell = Cell(0, 0, "", CellTypeEnum::Bonus_Robbery);
-    this->getBoard().setValue(0, 0, cell);
 }
 
 void Game::handleBonuses(int x, int y) {
@@ -410,8 +406,6 @@ void Game::handleBonuses(int x, int y) {
 
 bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau, bool ignoreTerritory, bool displayMessages) {
     bool nextToOwnTerritory = false;
-
-    cout << "X: " << x << " Y: " << y << endl;
     //placeable if the tile is placed on non grass or stone cell
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
@@ -523,7 +517,6 @@ bool Game::askPlacableCoordinates(std::string path, bool ignoreTerritory, CellTy
         cout << "char Y: " << endl;
         cin >> tempChar;
         y = charToInt(tempChar);
-        cout << "x: " << x << " y: " << y << endl;
 
         placeable = placeTile(x, y, tileLayout, ignoreTerritory, type);
     } while (not placeable);
