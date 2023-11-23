@@ -209,21 +209,20 @@ bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) 
 
     int x, y;
     bool placeable = true;
-    if (not ignoreTerritory) {
-        do {
-            cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
-            cin >> x;
-            cin >> y;
-            placeable = isValidPlacement(x, y, tableau);
-            cout << "Placeable : " << placeable << endl;
-        } while (not placeable);
-    } else {
-        cout << "Entrez des coordonnees valides pour la case haut a gauche x, y: " << endl;
+//    if (not ignoreTerritory) {
+    do {
+        cout << "Please enter valid coordinates for the tile (top left) x, y:" << endl;
         cin >> x;
         cin >> y;
+        placeable = isValidPlacement(x, y, tableau, ignoreTerritory);
+//        cout << "Invalid placement" << endl;
+    } while (not placeable);
 
-        cout << "AA : " << placeable << endl;
-    }
+//    } else {
+//        cout << "Please enter valid coordinates for the tile (top left) x, y:" << endl;
+//        cin >> x;
+//        cin >> y;
+//    }
 
 
     for (int i = 0; i < tableau.size(); ++i) {
@@ -344,7 +343,7 @@ void Game::handleBonuses(int x, int y) {
 }
 
 
-bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau) {
+bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau, bool ignoreTerritory) {
     bool nextToOwnTerritory = false;
 
     //placeable if the tile is placed on non grass or stone cell
@@ -353,27 +352,31 @@ bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau) {
             CellTypeEnum cellType = this->getBoard().getValue(i + x, j + y).getType();
             if (tableau[i][j] == '1' && cellType == CellTypeEnum::Grass || cellType == CellTypeEnum::Stone_Tile) {
                 cout << "You cannot place a tile on a Grass or Stone " << endl;
+                cout << "Cell type : " << i + x << ' ' << j + y << endl;
                 return false;
             }
 
-            //placeable if the tile is placed on a cell that has at least one adjacent neighbor part of the same territory
-            vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
-            for (auto &neighbor: neighbors) {
-                if (tableau[i][j] == '0') continue;
-                if (this->getCurrentPlayer().getColor() == neighbor.getColor()) {
-                    cout << "Valid Territory " << endl;
-                    nextToOwnTerritory = true;
-                } else if (this->getCurrentPlayer().getColor() != neighbor.getColor() &&
-                           neighbor.getType() == CellTypeEnum::Grass) {
-                    cout << "Invalid placement " << neighbor.getColor() << " "
-                         << this->getCurrentPlayer().getColor() << endl;
-                    return false;
+            if (ignoreTerritory == false) {
+
+                //placeable if the tile is placed on a cell that has at least one adjacent neighbor part of the same territory
+                vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
+                for (auto &neighbor: neighbors) {
+                    if (tableau[i][j] == '0') continue;
+                    if (this->getCurrentPlayer().getColor() == neighbor.getColor()) {
+                        nextToOwnTerritory = true;
+                    } else if (this->getCurrentPlayer().getColor() != neighbor.getColor() &&
+                               neighbor.getType() == CellTypeEnum::Grass) {
+                        cout << "Invalid Territory placement " << neighbor.getColor() << " "
+                             << this->getCurrentPlayer().getColor() << endl;
+                        return false;
+                    }
                 }
             }
         }
     }
 
-    return nextToOwnTerritory;
+    return ignoreTerritory ? true : nextToOwnTerritory;
+//    return nextToOwnTerritory;
 }
 
 int Game::getTileId() const { return tileId; }
