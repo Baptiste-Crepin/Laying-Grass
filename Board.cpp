@@ -6,12 +6,15 @@
 #include "Board.h"
 #include "enums/CellTypeEnum.h"
 #define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
-#define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
+#define RED     "\033[38;2;255;0;0m"
+#define GREEN   "\033[38;2;0;255;0m"
+#define YELLOW  "\033[38;2;255;255;0m"
+#define BLUE    "\033[38;2;0;0;255m"
+#define MAGENTA "\033[38;2;255;0;255m"
+#define CYAN    "\033[38;2;0;255;255m"
+#define ORANGE  "\033[38;2;255;165;0m"
+#define PURPLE  "\033[38;2;128;0;128m"
+#define TURQUOISE "\033[38;2;64;224;208m"
 
 using namespace std;
 
@@ -27,7 +30,7 @@ Board::Board(int s) {
     // Initialisation du tableau avec des valeurs par défaut, par exemple des espaces
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            grid[i][j] = Cell(i, j, "b", CellTypeEnum::Void);
+            grid[i][j] = Cell(i, j, "", CellTypeEnum::Void);
         }
     }
 
@@ -44,37 +47,71 @@ Board::~Board() {
 }
 
 void Board::display() const {
+    // Affichage des indices de colonnes
+    std::cout << "  "; // Espace pour l'alignement avec les colonnes
     for (int i = 0; i < size; ++i) {
+        char colIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
+        std::cout << colIndex << " ";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < size; ++i) {
+        // Affichage de l'indice de ligne et début de la bordure gauche
+        char rowIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
+        std::cout << rowIndex << "|";
+
         for (int j = 0; j < size; ++j) {
             std::string color = grid[i][j].getColor();
 
             switch (color[0]) {
                 case 'r':
-                    std::cout << RED << grid[i][j].getLabel() << " " << RESET;
+                    std::cout << RED << grid[i][j].getLabel() << RESET;
                     break;
                 case 'g':
-                    std::cout << GREEN << grid[i][j].getLabel() << " " << RESET;
+                    std::cout << GREEN << grid[i][j].getLabel() << RESET;
                     break;
                 case 'y':
-                    std::cout << YELLOW << grid[i][j].getLabel() << " " << RESET;
+                    std::cout << YELLOW << grid[i][j].getLabel() << RESET;
                     break;
                 case 'b':
-                    std::cout << BLUE << grid[i][j].getLabel() << " " << RESET;
+                    std::cout << BLUE << grid[i][j].getLabel() << RESET;
                     break;
                 case 'm':
-                    std::cout << MAGENTA << grid[i][j].getLabel() << " " << RESET;
+                    std::cout << MAGENTA << grid[i][j].getLabel() << RESET;
                     break;
                 case 'c':
-                    std::cout << CYAN << grid[i][j].getLabel() << " " << RESET;
+                    std::cout << CYAN << grid[i][j].getLabel() << RESET;
+                    break;
+                case 'o':
+                    std::cout << ORANGE << grid[i][j].getLabel() << RESET;
+                    break;
+                case 'p':
+                    std::cout << PURPLE << grid[i][j].getLabel() << RESET;
+                    break;
+                case 't':
+                    std::cout << TURQUOISE << grid[i][j].getLabel() << RESET;
                     break;
                 default:
-                    std::cout << grid[i][j].getLabel() << " ";
+                    std::cout << grid[i][j].getLabel();
                     break;
             }
+
+            std::cout << " "; // Espace entre chaque colonne
         }
+
+        std::cout << "|"; // Bordure droite et nouvelle ligne
         std::cout << std::endl;
     }
+
+    // Affichage de la bordure supérieure
+    std::cout << "  "; // Espace pour l'alignement avec les colonnes
+    for (int i = 0; i < size; ++i) {
+        std::cout << "-" << " ";
+    }
+    std::cout << std::endl;
 }
+
+
 
 void Board::setValue(int row, int col, Cell value) const {
     bool valid = false;
@@ -142,7 +179,7 @@ void Board::removeStone() const {
         std::cout << "Enter the coordinates of the stone to remove (x y): ";
         std::cin >> x >> y;
         if (this->getValue(x, y).getType() == CellTypeEnum::Stone_Tile) {
-            this->setValue(x, y, Cell(x, y, "b", CellTypeEnum::Void));
+            this->setValue(x, y, Cell(x, y, "", CellTypeEnum::Void));
             removed = true;
         } else {
             std::cout << "This is not a stone tile" << std::endl;

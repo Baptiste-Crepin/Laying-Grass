@@ -17,12 +17,15 @@
 #include "Placement/Choice_tiles.h"
 
 #define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
-#define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
+#define RED     "\033[38;2;255;0;0m"
+#define GREEN   "\033[38;2;0;255;0m"
+#define YELLOW  "\033[38;2;255;255;0m"
+#define BLUE    "\033[38;2;0;0;255m"
+#define MAGENTA "\033[38;2;255;0;255m"
+#define CYAN    "\033[38;2;0;255;255m"
+#define ORANGE  "\033[38;2;255;165;0m"
+#define PURPLE  "\033[38;2;128;0;128m"
+#define TURQUOISE "\033[38;2;64;224;208m"
 
 using namespace std;
 
@@ -143,7 +146,7 @@ Game Game::initializeGame() {
 //region: Private methods
 
 bool verif_color(char color) {
-    if (color == 'r' || color == 'g' || color == 'b' || color == 'y' || color == 'p' || color == 'o') {
+    if (color == 'r' || color == 'g' || color == 'b' || color == 'y' || color == 'p' || color == 'o' || color == 'c' || color == 't' || color == 'm') {
         return true;
     } else {
         return false;
@@ -169,12 +172,24 @@ void print_all_players(Player *playerTurnOrder, int playerCount) {
                 cout << YELLOW << " " << playerTurnOrder[i].getName() << " "
                      << playerTurnOrder[i].getColor() << RESET << endl;
                 break;
-            case 'p':
+            case 'm':
                 cout << MAGENTA << " " << playerTurnOrder[i].getName() << " "
                      << playerTurnOrder[i].getColor() << RESET << endl;
                 break;
-            case 'o':
+            case 'c':
                 cout << CYAN << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 'o':
+                cout << ORANGE << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 't':
+                cout << TURQUOISE << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 'p':
+                cout << PURPLE << " " << playerTurnOrder[i].getName() << " "
                      << playerTurnOrder[i].getColor() << RESET << endl;
                 break;
             default:
@@ -196,7 +211,7 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
         cin >> name;
         std::string color;
         while (!verif_color(color[0])) {
-            cout << "Player " << i + 1 << " choose color between r, g, b, y, p, o" << endl;
+            cout << "Player " << i + 1 << " choose color between r, g, b, y, p, c, o, p, t" << endl;
             cin >> color;
         }
         playerTurnOrder[i] = Player(i, name, color);
@@ -315,7 +330,7 @@ void Game::generateBonuses() {
                 int randomX = (rand() % (this->getBoard().getSize() - 2)) + 1;
                 int randomY = (rand() % (this->getBoard().getSize() - 2)) + 1;
                 if (this->getBoard().getValue(randomX, randomY).getType() == CellTypeEnum::Void) {
-                    Cell cell = Cell(randomX, randomY, "b", bonusTile->getType());
+                    Cell cell = Cell(randomX, randomY, "", bonusTile->getType());
                     this->getBoard().setValue(randomX, randomY, cell);
                     placed = true;
                 }
@@ -325,7 +340,7 @@ void Game::generateBonuses() {
         }
     }
     //todo: delete this test tile
-    Cell cell = Cell(0, 0, "b", CellTypeEnum::Bonus_Robbery);
+    Cell cell = Cell(0, 0, "", CellTypeEnum::Bonus_Robbery);
     this->getBoard().setValue(0, 0, cell);
 }
 
@@ -356,7 +371,7 @@ void Game::handleBonuses(int x, int y) {
                 }
 
                 //replaces the bonus tile with a grass tile
-                Cell cell = Cell(neighbor.getX(), neighbor.getY(), "b", CellTypeEnum::Grass);
+                Cell cell = Cell(neighbor.getX(), neighbor.getY(), "", CellTypeEnum::Grass);
                 this->getBoard().setValue(neighbor.getX(), neighbor.getY(), cell);
             }
         }
