@@ -5,6 +5,9 @@
 #include <iostream>
 #include "Board.h"
 #include "enums/CellTypeEnum.h"
+#include <iomanip>
+#include "Game.h"
+
 #define RESET   "\033[0m"
 #define RED     "\033[38;2;255;0;0m"
 #define GREEN   "\033[38;2;0;255;0m"
@@ -35,7 +38,6 @@ Board::Board(int s) {
     }
 
     cout << "Board created" << endl;
-    cout << grid[0][0].getType() << endl;
 }
 
 Board::~Board() {
@@ -48,7 +50,7 @@ Board::~Board() {
 
 void Board::display() const {
     // Affichage des indices de colonnes
-    std::cout << "  "; // Espace pour l'alignement avec les colonnes
+    std::cout << "   "; // Espace pour l'alignement avec les colonnes
     for (int i = 0; i < size; ++i) {
         char colIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
         std::cout << colIndex << " ";
@@ -57,42 +59,43 @@ void Board::display() const {
 
     for (int i = 0; i < size; ++i) {
         // Affichage de l'indice de ligne et début de la bordure gauche
-        char rowIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
-        std::cout << rowIndex << "|";
+//        char rowIndex = 'A' + i; // Convertir l'indice en lettre (A, B, C, ...)
+        std::cout << std::setw(2) << i << "|";
 
         for (int j = 0; j < size; ++j) {
             std::string color = grid[i][j].getColor();
 
             switch (color[0]) {
                 case 'r':
-                    std::cout << RED << grid[i][j].getLabel() << RESET;
+                    std::cout << RED << grid[i][j].getTileId() << RESET;
                     break;
                 case 'g':
-                    std::cout << GREEN << grid[i][j].getLabel() << RESET;
+                    std::cout << GREEN << grid[i][j].getTileId() << RESET;
                     break;
                 case 'y':
-                    std::cout << YELLOW << grid[i][j].getLabel() << RESET;
+                    std::cout << YELLOW << grid[i][j].getTileId() << RESET;
                     break;
                 case 'b':
-                    std::cout << BLUE << grid[i][j].getLabel() << RESET;
+                    std::cout << BLUE << grid[i][j].getTileId() << RESET;
                     break;
                 case 'm':
-                    std::cout << MAGENTA << grid[i][j].getLabel() << RESET;
+                    std::cout << MAGENTA << grid[i][j].getTileId() << RESET;
                     break;
                 case 'c':
-                    std::cout << CYAN << grid[i][j].getLabel() << RESET;
+                    std::cout << CYAN << grid[i][j].getTileId() << RESET;
                     break;
                 case 'o':
-                    std::cout << ORANGE << grid[i][j].getLabel() << RESET;
+                    std::cout << ORANGE << grid[i][j].getTileId() << RESET;
                     break;
                 case 'p':
-                    std::cout << PURPLE << grid[i][j].getLabel() << RESET;
+                    std::cout << PURPLE << grid[i][j].getTileId() << RESET;
                     break;
                 case 't':
-                    std::cout << TURQUOISE << grid[i][j].getLabel() << RESET;
+                    std::cout << TURQUOISE << grid[i][j].getTileId() << RESET;
                     break;
                 default:
-                    std::cout << grid[i][j].getLabel();
+                    Cell currentCell = grid[i][j];
+                    std::cout << currentCell.getLabel();
                     break;
             }
 
@@ -111,12 +114,27 @@ void Board::display() const {
     std::cout << std::endl;
 }
 
+//return the value of each cell and transform it into a int in a board
+std::vector<std::vector<int>> Board::getBoard() const {
+    std::vector<std::vector<int>> board;
+    for (int i = 0; i < size; ++i) {
+        std::vector<int> row;
+        for (int j = 0; j < size; ++j) {
+            row.push_back(grid[i][j].getfill());
+        }
+        board.push_back(row);
+    }
+    return board;
+}
 
+//get the color of the cell at x and y
+std::string Board::getColor(int x, int y) const {
+    return grid[x][y].getColor();
+}
 
 void Board::setValue(int row, int col, Cell value) const {
     bool valid = false;
     do {
-        cout << row << " " << col << endl;
         if (row >= 0 && row < size && col >= 0 && col < size) {
             grid[row][col] = value;
             return;
@@ -176,8 +194,11 @@ void Board::removeStone() const {
     int x, y;
     bool removed = false;
     do {
-        std::cout << "Enter the coordinates of the stone to remove (x y): ";
-        std::cin >> x >> y;
+        std::cout << "Enter the coordinates of the stone to remove: ";
+        char tempChar;
+        std::cin >> x;
+        std::cin >> tempChar;
+        y = Game::charToInt(tempChar);
         if (this->getValue(x, y).getType() == CellTypeEnum::Stone_Tile) {
             this->setValue(x, y, Cell(x, y, "", CellTypeEnum::Void));
             removed = true;
