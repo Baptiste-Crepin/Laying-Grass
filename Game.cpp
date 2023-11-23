@@ -218,7 +218,7 @@ bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) 
             cout << "Placeable : " << placeable << endl;
         } while (not placeable);
     } else {
-        cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
+        cout << "Entrez des coordonnees valides pour la case haut a gauche x, y: " << endl;
         cin >> x;
         cin >> y;
 
