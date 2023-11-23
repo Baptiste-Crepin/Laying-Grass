@@ -1,7 +1,6 @@
 //
 // Created by Baptiste Crepin on 03/11/2023.
 //
-
 #ifndef LAYINGGRASS_CELL_H
 #define LAYINGGRASS_CELL_H
 

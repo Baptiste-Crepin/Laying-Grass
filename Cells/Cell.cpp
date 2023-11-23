@@ -23,3 +23,4 @@ void Cell::setX(int x) { this->x = x; }
 void Cell::setY(int y) { this->y = y; }
 
 void Cell::setType(CellTypeEnum type) { this->type = type; }
+

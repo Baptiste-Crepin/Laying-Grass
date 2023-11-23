@@ -2,6 +2,7 @@
 // Created by Baptiste Crepin on 12/11/2023.
 //
 
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -12,6 +13,13 @@
 #include "Cells/Tiles/BonusTiles/Stone.h"
 #include "Cells/Tiles/BonusTiles/Robbery.h"
 #include "Cells/Tiles/BonusTiles/TileExchange.h"
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
 
 using namespace std;
 
@@ -116,19 +124,46 @@ Game Game::initializeGame() {
 
 //region: Private methods
 
+bool verif_color(char color) {
+    if (color == 'r' || color == 'g' || color == 'b' || color == 'y' || color == 'p' || color == 'o') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 Player *Game::randomizePlayerTurnOrder(int playerCount) {
     //gets a seed based on the current time for the rand() function
     srand(static_cast<unsigned>(time(nullptr)));
 
-    Player *playerTurnOrder = new Player[playerCount - 1];
-//    string name = "Test"; // Todo: get this a variable from the player
-    for (int i = 0; i < playerCount; i++) playerTurnOrder[i] = Player(i);
+    Player *playerTurnOrder = new Player[playerCount];  //todo: MODIF POUR TEST [playerCount- 1]; de base
     for (int i = 0; i < playerCount; i++) {
-        int randomIndex = rand() % playerCount;
+        std::cout << RED << "Texte en rouge" << RESET << std::endl;
+        cout << i << endl;
+        cout << "Player " << i + 1 << " Choose your name" << endl;
+        std::string name;
+        cin >> name;
+        cout << "Player " << i + 1 << " Choose your color" << endl;
+        std::string color;
+        while (!verif_color(color[0])) {
+            cout << "Player " << i + 1 << " choose color between r, g, b, y, p, o" << endl;
+            cin >> color;
+        }
+        playerTurnOrder[i] = Player(i, name, color);
+    }
+
+    for (int i = 0; i < playerCount; i++) {
+        cout << RED << playerTurnOrder[i].getId() << " " << playerTurnOrder[i].getName() << " " << playerTurnOrder[i].getColor() << RESET << endl;
+    }
+
+    cout << "Randomizing player turn order..." << endl;
+    for (int i = 0; i < playerCount - 1; i++) {
+        int randomIndex = rand() % (playerCount - 1);
         Player temp = playerTurnOrder[i];
         playerTurnOrder[i] = playerTurnOrder[randomIndex];
         playerTurnOrder[randomIndex] = temp;
     }
+
 
     return playerTurnOrder;
 }
