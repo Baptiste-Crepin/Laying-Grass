@@ -40,14 +40,18 @@ protected:
 
     void handleBonuses(int x, int y);
 
-    bool isValidPlacement(int x, int y, std::vector<std::vector<char>> tableau, bool ignoreTerritory = false);
+    bool isValidPlacement(int x, int y, std::vector<std::vector<char>> tableau, bool ignoreTerritory = false,
+                          bool DisplayMessages = true);
 
     void stealCell(Cell Cell);
 
     void activeRobberyBonus();
 
-    bool isPlacable(std::vector<std::vector<char>> tileLayout, bool ignoreTerritory = false);
+    bool
+    isPlacable(std::vector<std::vector<char>> tileLayout, bool ignoreTerritory = false);
 
+    bool askPlacableCoordinates(std::string path = "", bool ignoreTerritory = false,
+                                CellTypeEnum type = CellTypeEnum::Grass);
 
 public:
     static Game initializeGame();
@@ -87,7 +91,8 @@ public:
 
     bool askForTileExchangeUse();
 
-    void placeTile(std::string path = "", bool ignoreTerritory = false, CellTypeEnum type = CellTypeEnum::Grass);
+    bool placeTile(int x, int y, std::vector<std::vector<char>> tileLayout, bool ignoreTerritory = false,
+                   CellTypeEnum type = CellTypeEnum::Grass);
 
     void startGame();
 
