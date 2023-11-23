@@ -39,7 +39,6 @@ std::vector<std::vector<char>> choice_tiles(const std::vector<std::vector<char>>
             return choice_tiles(rotate90(matrix));
             break;
         case 'P':
-            cout << "Tile placed" << endl;
             return matrix;
             break;
         default:
