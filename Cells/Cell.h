@@ -12,6 +12,9 @@
 
 class Cell {
 private:
+    int tileId;
+
+private:
     int x;
     int y;
     std::string color;
@@ -22,7 +25,7 @@ public:
 
     const std::string &getColor() const;
 
-    Cell(int x, int y, std::string color, CellTypeEnum type = Void);
+    Cell(int x, int y, std::string color, CellTypeEnum type = Void, int tileId = 0);
 
     ~Cell();
 
@@ -39,6 +42,8 @@ public:
     void setY(int y);
 
     void setType(CellTypeEnum type);
+
+    int getTileId() const;
 };
 
 

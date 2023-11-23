@@ -94,6 +94,7 @@ bool Board::inBoard(CellTypeEnum type) const {
             }
         }
     }
+    return false;
 }
 
 void Board::removeStone() const {

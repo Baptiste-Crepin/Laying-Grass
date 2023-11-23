@@ -12,7 +12,7 @@
 //The Tile is the base class for all the different Tiles
 class Tile {
 protected:
-    int id;
+    int id = 0;
     std::string path;
 
     std::filesystem::path getAbsolutePath(std::filesystem::path relativePath);

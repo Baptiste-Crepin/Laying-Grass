@@ -215,27 +215,28 @@ bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) 
             cin >> x;
             cin >> y;
             placeable = isValidPlacement(x, y, tableau);
+            cout << "Placeable : " << placeable << endl;
         } while (not placeable);
     } else {
         cout << "Entrez les coordonnees de la case en haut a gauche x, y: " << endl;
         cin >> x;
         cin >> y;
+
+        cout << "AA : " << placeable << endl;
     }
 
 
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
             if (not(tableau[i][j] == '1')) continue;
-//            cout << "Cell placed  " << i + x << " " << j + y << endl;
-            //todo: check if the tile can be placed at the specified coordinates if ignoreTerritory == false
 
-
-//            cout << "Cell placed at " << i + x << " " << j + y << endl;
-            board.setValue(i + x, j + y, Cell(i + x, j + y, this->getCurrentPlayer().getColor(), type));
+            board.setValue(i + x, j + y,
+                           Cell(i + x, j + y, this->getCurrentPlayer().getColor(), type, this->getTileId()));
             handleBonuses(i + x, j + y);
 
         }
     }
+    this->setTileId(this->getTileId() + 1);
     return true; //todo: return false if the tile can't be placed at the specified coordinates
 }
 
@@ -302,7 +303,8 @@ void Game::generateBonuses() {
             generatedBonuses += 1;
         }
     }
-    Cell cell = Cell(0, 0, "b", CellTypeEnum::Bonus_Stone);
+    //todo: delete this test tile
+    Cell cell = Cell(0, 0, "b", CellTypeEnum::Bonus_Robbery);
     this->getBoard().setValue(0, 0, cell);
 }
 
@@ -323,8 +325,7 @@ void Game::handleBonuses(int x, int y) {
                         this->placeTile("Bonuses/Stone_0", true, CellTypeEnum::Stone_Tile);
                         break;
                     case CellTypeEnum::Bonus_Robbery:
-                        //Todo: implement Robbery when territory is implemented
-                        Robbery::applyBonus();
+                        this->activeRobberyBonus();
                         break;
                     case CellTypeEnum::Bonus_Exchange:
                         TileExchange::applyBonus(this->getCurrentPlayer());
@@ -372,6 +373,40 @@ bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau) {
     }
 
     return nextToOwnTerritory;
+}
+
+int Game::getTileId() const { return tileId; }
+
+void Game::setTileId(int tileId) { Game::tileId = tileId; }
+
+void Game::stealCell(Cell cell) {
+    int Id = cell.getTileId();
+    string color = cell.getColor();
+    Cell stolenCell = Cell(cell.getX(), cell.getY(), this->getCurrentPlayer().getColor(), CellTypeEnum::Grass);
+    this->getBoard().setValue(cell.getX(), cell.getY(), stolenCell);
+
+    vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(cell.getX(), cell.getY());
+    for (auto &neighbor: neighbors) {
+        if (neighbor.getTileId() == Id && neighbor.getColor() == color) this->stealCell(neighbor);
+
+    }
+}
+
+void Game::activeRobberyBonus() {
+    cout << "Enter the coordinates of the tile you want to steal" << endl;
+    bool valid = false;
+    do {
+        int x, y;
+        cin >> x >> y;
+        Cell chosenCell = this->getBoard().getValue(x, y);
+        if (chosenCell.getType() == CellTypeEnum::Grass &&
+            chosenCell.getColor() != this->getCurrentPlayer().getColor()) {
+            this->stealCell(chosenCell);
+            valid = true;
+        } else {
+            cout << "Invalid cell" << endl;
+        }
+    } while (not valid);
 }
 
 //endregion
