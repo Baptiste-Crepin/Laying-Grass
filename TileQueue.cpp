@@ -6,6 +6,14 @@
 #include <iostream>
 #include <iomanip>
 
+#ifdef _WIN32
+#define OS_NAME "Windows"
+#elif __APPLE__
+#define OS_NAME "macOS"
+#else
+#define OS_NAME "Other"
+#endif
+
 
 using namespace std;
 
@@ -31,13 +39,29 @@ void TileQueue::displayQueue() const {
 
         cout << std::setw(2) << i + 1 - this->getCurrentTileIndex() << "   ";
         for (size_t row = 0; row < layout.size(); row++) {
-            // Add "--" to the start of each row except the first one
             if (row > 0) {
                 std::cout << "     ";
             }
 
             for (char val: layout[row]) {
-                std::cout << (val == '1' ? "■" : " ") << " ";
+                // Print the value of the current cell chosing the right encoding
+                const char *output;
+
+                if (val == '1') {
+                    if (strcmp(OS_NAME, "Windows") == 0) {
+                        //todo: find a way to display unicode on windows
+                        output = reinterpret_cast<const char *>(u8"\u2B1C");
+                    } else if (strcmp(OS_NAME, "macOS") == 0) {
+                        output = "■";
+                    } else {
+                        output = "X";
+                    }
+                } else {
+                    output = " ";
+                }
+
+                cout << output << " ";
+
             }
             std::cout << std::endl;
         }
