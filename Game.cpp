@@ -119,7 +119,7 @@ void Game::startGame() {
     this->firstTurn();
 
     //main loop
-    while (not this->isGameEnded() and this->getTurnCount() <= this->getTurnLimit()) {
+    while (not this->isGameEnded() and this->getTurnCount() <= this->getTurnLimit() - 9) {
         this->newTurn();
     }
 
