@@ -14,6 +14,7 @@
 #include "Cells/Tiles/BonusTiles/Robbery.h"
 #include "Cells/Tiles/BonusTiles/TileExchange.h"
 #include "Cells/Cell.h"
+#include "Placement/Choice_tiles.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -201,33 +202,26 @@ bool Game::askForTileExchangeUse() {
     return booleanInput('y', 'n', message);
 }
 
-bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) {
+void Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) {
 
     // if a path is specified, open it, else open the current tile
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
-    vector<vector<char>> tableau = tile.retreiveTileLayout();
+    vector<vector<char>> tileLayout = tile.retreiveTileLayout();
+    if (tileLayout.size() > 1 || tileLayout[0].size() > 1) tileLayout = choice_tiles(tileLayout);
 
     int x, y;
     bool placeable = true;
-//    if (not ignoreTerritory) {
     do {
         cout << "Please enter valid coordinates for the tile (top left) x, y:" << endl;
         cin >> x;
         cin >> y;
-        placeable = isValidPlacement(x, y, tableau, ignoreTerritory);
-//        cout << "Invalid placement" << endl;
+        placeable = isValidPlacement(x, y, tileLayout, ignoreTerritory);
     } while (not placeable);
 
-//    } else {
-//        cout << "Please enter valid coordinates for the tile (top left) x, y:" << endl;
-//        cin >> x;
-//        cin >> y;
-//    }
 
-
-    for (int i = 0; i < tableau.size(); ++i) {
-        for (int j = 0; j < tableau[i].size(); ++j) {
-            if (not(tableau[i][j] == '1')) continue;
+    for (int i = 0; i < tileLayout.size(); ++i) {
+        for (int j = 0; j < tileLayout[i].size(); ++j) {
+            if (not(tileLayout[i][j] == '1')) continue;
 
             board.setValue(i + x, j + y,
                            Cell(i + x, j + y, this->getCurrentPlayer().getColor(), type, this->getTileId()));
@@ -236,7 +230,6 @@ bool Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) 
         }
     }
     this->setTileId(this->getTileId() + 1);
-    return true; //todo: return false if the tile can't be placed at the specified coordinates
 }
 
 void Game::firstTurn() {
