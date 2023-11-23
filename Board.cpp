@@ -95,7 +95,8 @@ void Board::display() const {
                     std::cout << TURQUOISE << grid[i][j].getTileId() << RESET;
                     break;
                 default:
-                    std::cout << grid[i][j].getTileId();
+                    Cell currentCell = grid[i][j];
+                    std::cout << currentCell.getLabel();
                     break;
             }
 
