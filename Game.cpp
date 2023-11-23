@@ -75,7 +75,7 @@ void Game::newTurn() {
     do {
         this->getBoard().display();
         cout << "Turn " << this->getTurnCount() << endl;
-        cout << "Player " << this->getCurrentPlayerIndex() + 1 << " | " << this->getCurrentPlayer().getId() << endl;
+        cout << "Player: " << this->getCurrentPlayer().getName() << endl;
         cout << "Queue : " << endl;
 
         this->getTileQueue().displayQueue();
