@@ -15,6 +15,8 @@
 #include "Cells/Tiles/BonusTiles/TileExchange.h"
 #include "Cells/Cell.h"
 #include "Placement/Choice_tiles.h"
+#include "Placement/Rotate_90.h"
+#include "Placement/Vertical_symmetry.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -208,6 +210,14 @@ void Game::placeTile(std::string path, bool ignoreTerritory, CellTypeEnum type) 
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
     vector<vector<char>> tileLayout = tile.retreiveTileLayout();
     if (tileLayout.size() > 1 || tileLayout[0].size() > 1) tileLayout = choice_tiles(tileLayout);
+
+    //check if the tile is placable
+    if (not this->isPlacable(tileLayout, ignoreTerritory)) {
+        cout << "Tile not placable" << endl;
+        return;
+    } else {
+        cout << "Tile placable" << endl;
+    }
 
     int x, y;
     bool placeable = true;
@@ -404,6 +414,27 @@ void Game::activeRobberyBonus() {
             cout << "Invalid cell" << endl;
         }
     } while (not valid);
+}
+
+bool Game::isPlacable(vector<vector<char>> tileLayout, bool ignoreTerritory) {
+    bool placable = false;
+    for (int symetry = 0; symetry < 2; symetry++) {
+        for (int rotation = 0; rotation < 4; rotation++) {
+            for (int i = 0; i < this->getBoard().getSize(); ++i) {
+                for (int j = 0; j < this->getBoard().getSize(); ++j) {
+                    placable = this->isValidPlacement(i, j, tileLayout, ignoreTerritory);
+                    if (placable == true) return placable;
+                }
+            }
+            tileLayout = rotate90(tileLayout);
+        }
+        tileLayout = vertical_symmetry(tileLayout);
+    }
+    if (placable == false) {
+        this->setNextPlayer();
+    }
+
+    return placable;
 }
 
 //endregion

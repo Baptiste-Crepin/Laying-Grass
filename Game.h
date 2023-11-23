@@ -46,6 +46,9 @@ protected:
 
     void activeRobberyBonus();
 
+    bool isPlacable(std::vector<std::vector<char>> tileLayout, bool ignoreTerritory = false);
+
+
 public:
     static Game initializeGame();
 
