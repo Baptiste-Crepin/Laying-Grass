@@ -5,7 +5,7 @@
 #include "TileQueue.h"
 #include <iostream>
 #include <iomanip>
-
+#include <cstring>
 #ifdef _WIN32
 #define OS_NAME "Windows"
 #elif __APPLE__
