@@ -27,7 +27,21 @@ int TileQueue::getDisplayedTiles() const { return displayedTiles; }
 
 void TileQueue::displayQueue() const {
     for (int i = this->getCurrentTileIndex(); i < this->getDisplayedTiles() + this->getCurrentTileIndex(); i++) {
-        cout << std::setw(2) << this->getQueue()[i % this->getTotalTiles()].getId() << " | ";
+        vector<vector<char>> layout = Tile(this->getQueue()[i % this->getTotalTiles()].getId()).retreiveTileLayout();
+
+        cout << std::setw(2) << i + 1 - this->getCurrentTileIndex() << "   ";
+        for (size_t row = 0; row < layout.size(); row++) {
+            // Add "--" to the start of each row except the first one
+            if (row > 0) {
+                std::cout << "     ";
+            }
+
+            for (char val: layout[row]) {
+                std::cout << (val == '1' ? "■" : " ") << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
     }
     cout << endl;
 }
@@ -53,10 +67,10 @@ void TileQueue::setCurrentTileIndex(int currentTileIndex) {
 Tile TileQueue::tileExchange() {
     cout << "Choose a tile to exchange : " << endl;
     this->displayQueue();
-    for (int i = 0; i < this->getDisplayedTiles(); i++) {
-        cout << std::setw(2) << i + 1 << " | ";
-    }
-    cout << endl;
+//    for (int i = 0; i < this->getDisplayedTiles(); i++) {
+//        cout << std::setw(2) << i + 1 << " | ";
+//    }
+//    cout << endl;
 
     int selectedTile = selectTileExchangeIndex();
 
