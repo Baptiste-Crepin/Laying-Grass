@@ -228,7 +228,7 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
     //gets a seed based on the current time for the rand() function
     srand(static_cast<unsigned>(time(nullptr)));
 
-    Player *playerTurnOrder = new Player[playerCount];  //todo: MODIF POUR TEST [playerCount- 1]; de base
+    Player *playerTurnOrder = new Player[playerCount];
     for (int i = 0; i < playerCount; i++) {
         cout << i << endl;
         cout << "Player " << i + 1 << " Choose your name" << endl;
@@ -367,9 +367,6 @@ void Game::generateBonuses() {
             generatedBonuses += 1;
         }
     }
-    //todo: delete this test tile
-    Cell cell = Cell(0, 0, "", CellTypeEnum::Bonus_Robbery);
-    this->getBoard().setValue(0, 0, cell);
 }
 
 void Game::handleBonuses(int x, int y) {

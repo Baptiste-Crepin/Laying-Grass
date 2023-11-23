@@ -16,18 +16,12 @@ private:
 
 public:
     Player(int id, std::string name, std::string color);
-//    Player(int id);
+
     Player();
 
     ~Player();
 
     int getId() const;
-
-    void setName(std::string name);
-
-    void displayPlayerInfo() const;
-
-    void setColor(std::string color);
 
     std::string getColor() const;
 
