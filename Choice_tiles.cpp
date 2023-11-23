@@ -11,16 +11,18 @@
 
 using namespace std;
 
-std::vector<std::vector<char>> choice_tiles(const std::vector<std::vector<char>>& matrix) {
+std::vector<std::vector<char>> choice_tiles(const std::vector<std::vector<char>> &matrix) {
     cout << "Tile to place" << endl;
     char t = -2;
     for (const auto &row: matrix) {
-            for (char val: row) {
-                if (val == '1')
-                    std::cout << t << " ";
-            }
-            std::cout << std::endl;
+        for (char val: row) {
+            if (val == '1')
+                std::cout << t << " ";
+            else if (val == '0')
+                std::cout << "  ";
         }
+        std::cout << std::endl;
+    }
 
     cout << "Flip tile (F)" << endl;
     cout << "Rotate tile (R)" << endl;
@@ -31,10 +33,10 @@ std::vector<std::vector<char>> choice_tiles(const std::vector<std::vector<char>>
 
     switch (choice) {
         case 'F':
-            choice_tiles(vertical_symmetry(matrix));
+            return choice_tiles(vertical_symmetry(matrix));
             break;
         case 'R':
-            choice_tiles(rotate90(matrix));
+            return choice_tiles(rotate90(matrix));
             break;
         case 'P':
             cout << "Tile placed" << endl;

@@ -84,7 +84,7 @@ public:
 
     bool askForTileExchangeUse();
 
-    bool placeTile(std::string path = "", bool ignoreTerritory = false, CellTypeEnum type = CellTypeEnum::Grass);
+    void placeTile(std::string path = "", bool ignoreTerritory = false, CellTypeEnum type = CellTypeEnum::Grass);
 
     void startGame();
 
