@@ -375,41 +375,38 @@ bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau) {
     return nextToOwnTerritory;
 }
 
-int Game::getTileId() const {
-    return tileId;
-}
+int Game::getTileId() const { return tileId; }
 
-void Game::setTileId(int tileId) {
-    Game::tileId = tileId;
-}
+void Game::setTileId(int tileId) { Game::tileId = tileId; }
 
 void Game::stealCell(Cell cell) {
     int Id = cell.getTileId();
     string color = cell.getColor();
-    cout << "TRY" << Id << ' ' << color << endl;
     Cell stolenCell = Cell(cell.getX(), cell.getY(), this->getCurrentPlayer().getColor(), CellTypeEnum::Grass);
     this->getBoard().setValue(cell.getX(), cell.getY(), stolenCell);
 
-
     vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(cell.getX(), cell.getY());
     for (auto &neighbor: neighbors) {
+        if (neighbor.getTileId() == Id && neighbor.getColor() == color) this->stealCell(neighbor);
 
-        if (neighbor.getTileId() == Id && neighbor.getColor() == color) {
-            cout << "STOLEN" << endl;
-            this->stealCell(neighbor);
-        }
     }
 }
 
 void Game::activeRobberyBonus() {
     cout << "Enter the coordinates of the tile you want to steal" << endl;
-    int x, y;
-    cin >> x >> y;
-    Cell chosenCell = this->getBoard().getValue(x, y);
-    if (chosenCell.getType() == CellTypeEnum::Grass &&
-        chosenCell.getColor() != this->getCurrentPlayer().getColor()) {
-        this->stealCell(chosenCell);
-    }
+    bool valid = false;
+    do {
+        int x, y;
+        cin >> x >> y;
+        Cell chosenCell = this->getBoard().getValue(x, y);
+        if (chosenCell.getType() == CellTypeEnum::Grass &&
+            chosenCell.getColor() != this->getCurrentPlayer().getColor()) {
+            this->stealCell(chosenCell);
+            valid = true;
+        } else {
+            cout << "Invalid cell" << endl;
+        }
+    } while (not valid);
 }
 
 //endregion
