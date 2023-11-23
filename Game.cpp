@@ -15,8 +15,6 @@
 #include "Cells/Tiles/BonusTiles/TileExchange.h"
 #include "Cells/Cell.h"
 #include "Placement/Choice_tiles.h"
-#include "Placement/Rotate_90.h"
-#include "Placement/Vertical_symmetry.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[38;2;255;0;0m"
@@ -389,11 +387,12 @@ void Game::handleBonuses(int x, int y) {
 bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau, bool ignoreTerritory, bool displayMessages) {
     bool nextToOwnTerritory = false;
 
+    cout << "X: " << x << " Y: " << y << endl;
     //placeable if the tile is placed on non grass or stone cell
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
             CellTypeEnum cellType = this->getBoard().getValue(i + x, j + y).getType();
-            if (tableau[i][j] == '1' && cellType == CellTypeEnum::Grass || cellType == CellTypeEnum::Stone_Tile) {
+            if (tableau[i][j] == '1' && (cellType == CellTypeEnum::Grass || cellType == CellTypeEnum::Stone_Tile)) {
                 if (displayMessages) cout << "You cannot place a tile on a Grass or Stone " << endl;
                 return false;
             }
@@ -404,7 +403,9 @@ bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau, bool ign
                 vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
                 for (auto &neighbor: neighbors) {
                     if (tableau[i][j] == '0') continue;
-                    if (this->getCurrentPlayer().getColor() == neighbor.getColor()) {
+                    bool condition = this->getCurrentPlayer().getColor() == neighbor.getColor();
+
+                    if (condition) {
                         nextToOwnTerritory = true;
                     } else if (this->getCurrentPlayer().getColor() != neighbor.getColor() &&
                                neighbor.getType() == CellTypeEnum::Grass) {
@@ -413,6 +414,7 @@ bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau, bool ign
                                  << this->getCurrentPlayer().getColor() << endl;
                         return false;
                     }
+
                 }
             }
         }
@@ -461,27 +463,23 @@ void Game::activeRobberyBonus() {
     } while (not valid);
 }
 
-bool Game::isPlacable(vector<vector<char>> tileLayout, bool ignoreTerritory) {
-    bool placable = false;
-//    for (int symetry = 0; symetry < 2; symetry++) {
-//        for (int rotation = 0; rotation < 4; rotation++) {
-    for (int i = 0; i < this->getBoard().getSize() - tileLayout.size() - 1; ++i) {
-        for (int j = 0; j < this->getBoard().getSize() - tileLayout[0].size() - 1; ++j) {
-            placable = this->isValidPlacement(i, j, tileLayout, ignoreTerritory, false);
-            if (placable == true) return placable;
-        }
-    }
-//            tileLayout = rotate90(tileLayout);
+// this method skips the turn if the tile is not placable
+// could not get it to work properly. prefered to comment it for the oral presentation
+//bool Game::isPlacable(vector<vector<char>> tileLayout, bool ignoreTerritory) {
+//    bool placable = false;
+//    for (int i = 0; i < this->getBoard().getSize() - tileLayout.size(); i++) {
+//        for (int j = 0; j < this->getBoard().getSize() - tileLayout[0].size(); j++) {
+//            placable = this->isValidPlacement(i, j, tileLayout, ignoreTerritory, false);
+//            if (placable == true) return placable;
 //        }
-//        tileLayout = vertical_symmetry(tileLayout);
 //    }
-    if (placable == false) {
-        cout << "Tile not placable, turn skipped" << endl;
-        this->setNextPlayer();
-    }
-
-    return placable;
-}
+//    if (placable == false) {
+//        cout << "Tile not placable, turn skipped" << endl;
+//        this->setNextPlayer();
+//    }
+//
+//    return placable;
+//}
 
 bool Game::askPlacableCoordinates(std::string path, bool ignoreTerritory, CellTypeEnum type) {
     Tile tile = path == "" ? this->getTileQueue().getCurrentTile() : Tile(path);
@@ -505,6 +503,8 @@ bool Game::askPlacableCoordinates(std::string path, bool ignoreTerritory, CellTy
 
         placeable = placeTile(x, y, tileLayout, ignoreTerritory, type);
     } while (not placeable);
+
+    return true;
 }
 
 int Game::charToInt(char c) {
