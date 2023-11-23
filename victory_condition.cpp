@@ -37,16 +37,3 @@ Square SquareFinder::findLargestSquare(const std::vector<std::vector<int>>& matr
 
     return {maxSize, maxRow, maxCol};
 }
-
-// A ajouter a la fin de la partie
-
-//SquareFinder squareFinder;
-//Square result = squareFinder.findLargestSquare(matrix);
-//
-//if (result.size > 0) {
-//std::cout << "Found a square of size " << result.size << " at coordinates (" << result.row << ", " << result.col << ").\n";
-//} else {
-//std::cout << "No square of 1s found.\n";
-//}
-//
-//return 0;

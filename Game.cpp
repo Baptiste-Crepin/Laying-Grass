@@ -15,6 +15,9 @@
 #include "Cells/Tiles/BonusTiles/TileExchange.h"
 #include "Cells/Cell.h"
 #include "Placement/Choice_tiles.h"
+#include "Placement/Rotate_90.h"
+#include "Placement/Vertical_symmetry.h"
+#include "victory_condition.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[38;2;255;0;0m"
@@ -122,6 +125,27 @@ void Game::startGame() {
 
     //end game
     this->exchangeLeftoverCoupons();
+
+    //victory condition
+    SquareFinder squareFinder;
+    std::vector<std::vector<int>> board_test = this->getBoard().getBoard();
+    Square result = squareFinder.findLargestSquare(this->getBoard().getBoard());
+
+
+    if (result.size > 0) {
+        std::cout << "Found a square of size " << result.size << " at coordinates (" << result.row << ", " << result.col
+                  << ").\n";
+        std::cout << "Color " << this->getBoard().getColor(result.row, result.col) << " win " << std::endl;
+        //print player who color correspond
+        for (int i = 0; i < this->getPlayerCount(); i++) {
+            if (this->getPlayerTurnOrder()[i].getColor() == this->getBoard().getColor(result.row, result.col)) {
+                std::cout << this->getPlayerTurnOrder()[i].getName() << " win " << std::endl;
+            }
+        }
+    } else {
+        std::cout << "No square of is found.\n";
+    }
+
 }
 
 //endregion
@@ -271,7 +295,7 @@ bool Game::placeTile(int x, int y, vector<vector<char>> tileLayout, bool ignoreT
             if (not(tileLayout[i][j] == '1')) continue;
 
             board.setValue(i + x, j + y,
-                           Cell(i + x, j + y, this->getCurrentPlayer().getColor(), type, this->getTileId()));
+                           Cell(i + x, j + y, this->getCurrentPlayer().getColor(), type, this->getTileId(), 1));
             handleBonuses(i + x, j + y);
 
         }

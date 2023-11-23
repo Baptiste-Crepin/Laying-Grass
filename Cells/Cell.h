@@ -19,19 +19,24 @@ private:
     int y;
     std::string color;
     CellTypeEnum type;
+    bool fill;
 
 public:
     Cell() : x(0), y(0), type(Void) {}
 
     const std::string &getColor() const;
 
-    Cell(int x, int y, std::string color, CellTypeEnum type = Void, int tileId = 0);
+    Cell(int x, int y, std::string color, CellTypeEnum type = Void, int tileId = 0, int fill = 0);
 
     ~Cell();
 
     int getX() const;
 
     int getY() const;
+
+    int getfill() const;
+
+    int setfill(int fill);
 
     CellTypeEnum getType() const;
 

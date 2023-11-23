@@ -29,6 +29,10 @@ public:
 
     std::vector<Cell> getAdjacentNeighbors(int row, int col) const;
 
+    std::vector<std::vector<int>> getBoard() const;
+
+    std::string getColor(int x, int y) const;
+
     bool inBoard(CellTypeEnum type) const;
 
     void removeStone() const;

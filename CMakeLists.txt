@@ -15,4 +15,5 @@ add_executable(LayingGrass main.cpp Cells/Tiles/Tile.cpp Cells/Tiles/Tile.h enum
         TileQueue.cpp TileQueue.h
         Placement/Choice_tiles.cpp
         Placement/Choice_tiles.h
-        Cells/Tiles/BonusTiles/BonusTile.cpp Cells/Tiles/BonusTiles/BonusTile.h Cells/Tiles/BonusTiles/Stone.cpp Cells/Tiles/BonusTiles/Stone.h Cells/Tiles/BonusTiles/Robbery.cpp Cells/Tiles/BonusTiles/Robbery.h Cells/Tiles/BonusTiles/TileExchange.cpp Cells/Tiles/BonusTiles/TileExchange.h)
+        Cells/Tiles/BonusTiles/BonusTile.cpp Cells/Tiles/BonusTiles/BonusTile.h Cells/Tiles/BonusTiles/Stone.cpp Cells/Tiles/BonusTiles/Stone.h Cells/Tiles/BonusTiles/Robbery.cpp Cells/Tiles/BonusTiles/Robbery.h Cells/Tiles/BonusTiles/TileExchange.cpp Cells/Tiles/BonusTiles/TileExchange.h
+        victory_condition.cpp)
