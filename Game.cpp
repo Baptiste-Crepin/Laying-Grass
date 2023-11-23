@@ -135,6 +135,12 @@ void Game::startGame() {
     if (result.size > 0) {
     std::cout << "Found a square of size " << result.size << " at coordinates (" << result.row << ", " << result.col << ").\n";
     std::cout << "Color "<< this->getBoard().getColor(result.row, result.col) << " win " << std::endl;
+    //print player who color correspond
+    for (int i = 0; i < this->getPlayerCount(); i++) {
+        if (this->getPlayerTurnOrder()[i].getColor() == this->getBoard().getColor(result.row, result.col)) {
+            std::cout << this->getPlayerTurnOrder()[i].getName() << " win " << std::endl;
+        }
+    }
     } else {
     std::cout << "No square of is found.\n";
     }
