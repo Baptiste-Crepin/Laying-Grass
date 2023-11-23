@@ -5,6 +5,13 @@
 #include <iostream>
 #include "Board.h"
 #include "enums/CellTypeEnum.h"
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
 
 using namespace std;
 
@@ -39,9 +46,33 @@ Board::~Board() {
 void Board::display() const {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            cout << grid[i][j].getLabel() << " ";
+            std::string color = grid[i][j].getColor();
+
+            switch (color[0]) {
+                case 'r':
+                    std::cout << RED << grid[i][j].getLabel() << " " << RESET;
+                    break;
+                case 'g':
+                    std::cout << GREEN << grid[i][j].getLabel() << " " << RESET;
+                    break;
+                case 'y':
+                    std::cout << YELLOW << grid[i][j].getLabel() << " " << RESET;
+                    break;
+                case 'b':
+                    std::cout << BLUE << grid[i][j].getLabel() << " " << RESET;
+                    break;
+                case 'm':
+                    std::cout << MAGENTA << grid[i][j].getLabel() << " " << RESET;
+                    break;
+                case 'c':
+                    std::cout << CYAN << grid[i][j].getLabel() << " " << RESET;
+                    break;
+                default:
+                    std::cout << grid[i][j].getLabel() << " ";
+                    break;
+            }
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 }
 

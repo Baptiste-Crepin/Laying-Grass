@@ -150,18 +150,50 @@ bool verif_color(char color) {
     }
 }
 
+void print_all_players(Player *playerTurnOrder, int playerCount) {
+    for (int i = 0; i < playerCount; i++) {
+        switch (playerTurnOrder[i].getColor()[0]) {
+            case 'r':
+                cout << RED << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 'g':
+                cout << GREEN << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 'b':
+                cout << BLUE << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 'y':
+                cout << YELLOW << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 'p':
+                cout << MAGENTA << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            case 'o':
+                cout << CYAN << " " << playerTurnOrder[i].getName() << " "
+                     << playerTurnOrder[i].getColor() << RESET << endl;
+                break;
+            default:
+                break;
+
+        }
+    }
+}
+
 Player *Game::randomizePlayerTurnOrder(int playerCount) {
     //gets a seed based on the current time for the rand() function
     srand(static_cast<unsigned>(time(nullptr)));
 
     Player *playerTurnOrder = new Player[playerCount];  //todo: MODIF POUR TEST [playerCount- 1]; de base
     for (int i = 0; i < playerCount; i++) {
-        std::cout << RED << "Texte en rouge" << RESET << std::endl;
         cout << i << endl;
         cout << "Player " << i + 1 << " Choose your name" << endl;
         std::string name;
         cin >> name;
-        cout << "Player " << i + 1 << " Choose your color" << endl;
         std::string color;
         while (!verif_color(color[0])) {
             cout << "Player " << i + 1 << " choose color between r, g, b, y, p, o" << endl;
@@ -170,10 +202,7 @@ Player *Game::randomizePlayerTurnOrder(int playerCount) {
         playerTurnOrder[i] = Player(i, name, color);
     }
 
-    for (int i = 0; i < playerCount; i++) {
-        cout << RED << playerTurnOrder[i].getId() << " " << playerTurnOrder[i].getName() << " "
-             << playerTurnOrder[i].getColor() << RESET << endl;
-    }
+    print_all_players(playerTurnOrder, playerCount);
 
     cout << "Randomizing player turn order..." << endl;
     for (int i = 0; i < playerCount - 1; i++) {
