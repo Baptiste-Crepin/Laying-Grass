@@ -45,10 +45,17 @@ void TileQueue::displayQueue() const {
 
             for (char val: layout[row]) {
                 // Print the value of the current cell chosing the right encoding
-                cout << (val == '1' ? (OS_NAME == "macOS" ? "■ " :
-                                       OS_NAME == "Windows" ? "&#2B1C; " :
-                                       "X ") :
-                         "  ");
+                const char* output;
+
+                if (val == '1') {
+                    if (OS_NAME == "macOs") output = "■";
+                    if (OS_NAME == "Windows") output = reinterpret_cast<const char *>(u8"\u2B1C");
+                    if (OS_NAME == "Other") output = "X";
+                } else {
+                    output = " ";
+                }
+
+                cout << output << " ";
 
             }
             std::cout << std::endl;
