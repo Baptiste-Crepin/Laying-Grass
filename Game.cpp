@@ -351,14 +351,15 @@ bool Game::isValidPlacement(int x, int y, vector<vector<char>> tableau) {
     for (int i = 0; i < tableau.size(); ++i) {
         for (int j = 0; j < tableau[i].size(); ++j) {
             CellTypeEnum cellType = this->getBoard().getValue(i + x, j + y).getType();
-            if (cellType == CellTypeEnum::Grass || cellType == CellTypeEnum::Stone_Tile) {
-                cout << "Invalid placement " << endl;
+            if (tableau[i][j] == '1' && cellType == CellTypeEnum::Grass || cellType == CellTypeEnum::Stone_Tile) {
+                cout << "You cannot place a tile on a Grass or Stone " << endl;
                 return false;
             }
 
             //placeable if the tile is placed on a cell that has at least one adjacent neighbor part of the same territory
             vector<Cell> neighbors = this->getBoard().getAdjacentNeighbors(i + x, j + y);
             for (auto &neighbor: neighbors) {
+                if (tableau[i][j] == '0') continue;
                 if (this->getCurrentPlayer().getColor() == neighbor.getColor()) {
                     cout << "Valid Territory " << endl;
                     nextToOwnTerritory = true;
